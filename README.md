@@ -1,10 +1,9 @@
 # 🎯 Personal Portfolio Website
-You can visit my website here:  
-👉 [Website Link](https://navpreet-portfolio-nqug.vercel.app/)
+You can add the live website link here after deployment.
 
 ---
 
-# 💼 Personal Portfolio Website by Navpreet Singh
+# 💼 Personal Portfolio Website by Aaradhya Malaviya
 
 Welcome to my **Personal Portfolio Website**, a platform where I showcase my skills, projects, certifications, and learning journey in software development. This website represents my profile as a developer and serves as a digital resume.
 
@@ -49,7 +48,6 @@ I am actively seeking opportunities in **Software Development**, especially in r
 **Tools**
 - Git  
 - GitHub  
-- Firebase  
 - Android Studio  
 - IntelliJ IDEA  
 - VS Code  
@@ -57,7 +55,6 @@ I am actively seeking opportunities in **Software Development**, especially in r
 
 **Databases**
 - MySQL  
-- Firebase Firestore  
 
 <img width="1801" height="823" alt="image" src="https://github.com/user-attachments/assets/59828f84-86d2-414d-a445-704156bca23f" />
 
@@ -66,15 +63,14 @@ I am actively seeking opportunities in **Software Development**, especially in r
 
 ## 🚀 Live Preview
 
-Check out the live version of my portfolio here:  
-👉 https://navpreet-portfolio-nqug.vercel.app/
+Add the live version of the portfolio here after deployment.
 
 ---
 
 ## 📈 Highlights
 
 - Showcases **5+ personal and academic projects**
-- Integrated **Firebase Firestore** for contact form submissions
+- Contact form sends messages to my email address
 - Fully responsive design for desktop and mobile
 - Clean and modern UI  
 
@@ -111,5 +107,4 @@ Feel free to connect with me for **collaboration, internships, or job opportunit
 
 ## 📫 Let's Connect
 
-- **Email:** navi2005saini@gmail.com  
-- **GitHub:** https://github.com/Navpreet0981
+- **Email:** aaradhya.malaviya2005@gmail.com

@@ -157,24 +157,6 @@ for (let i = 0; i < navigationLinks.length; i++) {
 }
 
 
-// Firebase configuration
-// ================= CONTACT FORM + FIREBASE =================
-
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAC6lXk25VAtjfCz8H_f2FwQzE-5DCkcC0",
-  authDomain: "navpreet-s-portfolio.firebaseapp.com",
-  projectId: "navpreet-s-portfolio",
-  storageBucket: "navpreet-s-portfolio.firebasestorage.app",
-  messagingSenderId: "89023718038",
-  appId: "1:89023718038:web:12337af1389127a23cd8b7",
-  measurementId: "G-HQR6G1Y9RQ"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
 // Contact form elements
 const form = document.querySelector("[data-form]");
 const inputs = document.querySelectorAll("[data-form-input]");
@@ -185,33 +167,5 @@ inputs.forEach(input => {
   input.addEventListener("input", () => {
     submitBtn.disabled = !form.checkValidity();
   });
-});
-
-// Handle form submission
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const name = form.querySelector("input[name='fullname']").value.trim();
-  const email = form.querySelector("input[name='email']").value.trim();
-  const message = form.querySelector("textarea[name='message']").value.trim();
-
-  if (!name || !email || !message) return;
-
-  try {
-    await db.collection("messages").add({
-      name,
-      email,
-      message,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    alert("Message sent successfully!");
-    form.reset();
-    submitBtn.disabled = true;
-
-  } catch (error) {
-    console.error("Firestore Error:", error);
-    alert("Failed to send message. Try again later.");
-  }
 });
 
