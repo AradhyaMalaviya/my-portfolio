@@ -169,3 +169,57 @@ inputs.forEach(input => {
   });
 });
 
+
+
+// certificate preview modal
+const certificateItems = document.querySelectorAll("[data-certificate-item]");
+const certificateModal = document.querySelector("[data-certificate-modal]");
+const certificateModalTitle = document.querySelector("[data-certificate-modal-title]");
+const certificateModalProvider = document.querySelector("[data-certificate-modal-provider]");
+const certificateModalFrame = document.querySelector("[data-certificate-modal-frame]");
+const certificateOpenLink = document.querySelector("[data-certificate-open-link]");
+const certificateModalCloseBtns = document.querySelectorAll("[data-certificate-modal-close]");
+
+const closeCertificateModal = function () {
+  if (!certificateModal) return;
+
+  certificateModal.classList.remove("active");
+  document.body.classList.remove("certificate-modal-open");
+
+  if (certificateModalFrame) {
+    certificateModalFrame.removeAttribute("src");
+  }
+}
+
+if (certificateModal) {
+  certificateItems.forEach(item => {
+    item.addEventListener("click", event => {
+      event.preventDefault();
+
+      const certificateSrc = item.dataset.certificateSrc;
+      const certificateTitle = item.dataset.certificateTitle;
+      const certificateProvider = item.dataset.certificateProvider;
+
+      certificateModalTitle.textContent = certificateTitle;
+      certificateModalProvider.textContent = certificateProvider;
+      certificateModalFrame.src = certificateSrc;
+      certificateModalFrame.title = `${certificateTitle} PDF preview`;
+      certificateOpenLink.href = certificateSrc;
+      certificateOpenLink.setAttribute("aria-label", `Open ${certificateTitle} PDF in a new tab`);
+
+      certificateModal.classList.add("active");
+      document.body.classList.add("certificate-modal-open");
+    });
+  });
+
+  certificateModalCloseBtns.forEach(button => {
+    button.addEventListener("click", closeCertificateModal);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && certificateModal.classList.contains("active")) {
+      closeCertificateModal();
+    }
+  });
+}
+

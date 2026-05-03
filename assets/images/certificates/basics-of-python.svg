@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="title desc">
+  <title id="title">Basics of Python certificate preview</title>
+  <desc id="desc">Preview card for a Basics of Python completion certificate awarded to Aaradhya Malaviya.</desc>
+  <rect width="1000" height="700" fill="#edf4fb"/>
+  <rect x="52" y="52" width="896" height="596" rx="22" fill="#ffffff" stroke="#2563eb" stroke-width="7"/>
+  <rect x="86" y="86" width="828" height="528" rx="16" fill="none" stroke="#f2c94c" stroke-width="3"/>
+  <text x="500" y="142" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#1e3a8a">CERTIFICATE OF COMPLETION</text>
+  <text x="500" y="208" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#4b5563">Awarded to</text>
+  <text x="500" y="272" text-anchor="middle" font-family="Georgia, serif" font-size="46" font-weight="700" fill="#111827">Aaradhya Malaviya</text>
+  <line x1="290" y1="304" x2="710" y2="304" stroke="#f2c94c" stroke-width="4"/>
+  <text x="500" y="386" text-anchor="middle" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#1e3a8a">Basics of Python</text>
+  <text x="500" y="462" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#4b5563">Successfully completed the course</text>
+  <text x="500" y="532" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#4b5563">Issued: September 20, 2024</text>
+  <circle cx="824" cy="516" r="48" fill="#2563eb" opacity="0.12"/>
+  <text x="824" y="526" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#2563eb">PY</text>
+</svg>
