@@ -752,357 +752,40 @@
             <h2 class="h2 article-title">Projects</h2>
           </header>
 
-          <section class="projects">
-            <ul class="filter-list">
-              <li class="filter-item">
-                <button class="active" data-filter-btn>All</button>
-              </li>
+          <section class="projects" id="github-projects-section">
 
-              <li class="filter-item">
-                <button data-filter-btn>Web design</button>
-              </li>
-
-              <li class="filter-item">
-                <button data-filter-btn>Applications</button>
-              </li>
-
-              <li class="filter-item">
-                <button data-filter-btn>Web development</button>
+            <!-- Language filter bar (populated dynamically) -->
+            <ul class="gh-filter-list" id="gh-filter-list">
+              <li class="gh-filter-item">
+                <button class="gh-filter-btn active" data-lang="all">All</button>
               </li>
             </ul>
 
-            <div class="filter-select-box">
-              <button class="filter-select" data-select>
-                <div class="select-value" data-selecct-value>
-                  Select category
-                </div>
-
-                <div class="select-icon">
-                  <ion-icon name="chevron-down"></ion-icon>
-                </div>
-              </button>
-
-              <ul class="select-list">
-                <li class="select-item">
-                  <button data-select-item>All</button>
-                </li>
-
-                <li class="select-item">
-                  <button data-select-item>Web design</button>
-                </li>
-
-                <li class="select-item">
-                  <button data-select-item>Applications</button>
-                </li>
-
-                <li class="select-item">
-                  <button data-select-item>Web development</button>
-                </li>
-              </ul>
+            <!-- Loading skeleton -->
+            <div class="gh-loading" id="gh-loading">
+              <div class="gh-skeleton-grid">
+                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
+                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
+                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
+                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
+                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
+                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
+              </div>
             </div>
 
-            <ul class="project-list">
+            <!-- Error state -->
+            <div class="gh-error" id="gh-error" style="display:none;">
+              <ion-icon name="cloud-offline-outline" class="gh-error-icon"></ion-icon>
+              <p class="gh-error-text">Unable to load projects from GitHub.</p>
+              <button class="gh-retry-btn" id="gh-retry-btn">
+                <ion-icon name="refresh-outline"></ion-icon>
+                <span>Retry</span>
+              </button>
+            </div>
 
-              <!-- RentGo -->
-               <li
-                class="project-item active"
-                data-filter-item
-                data-category="web development"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
+            <!-- Project cards grid (populated dynamically) -->
+            <ul class="gh-project-grid" id="gh-project-grid" style="display:none;"></ul>
 
-                    <img
-                      src="./assets/images/project12.png"
-                      alt="RentGo"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">RentGo - Car Rental System</h3>
-
-                  <p class="project-category">Web development</p>
-                </a>
-              </li>
-
-              <!-- AI Driven Task Managment -->
-               <li
-                class="project-item active"
-                data-filter-item
-                data-category="web development"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-11.png"
-                      alt="Task Management"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">AI Driven Task Managment Using GROQ --LLM</h3>
-
-                  <p class="project-category">Web development</p>
-                </a>
-              </li>
-
-              <!-- My Portfolio -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="web development"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-9.png"
-                      alt="Portfolio"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">Portfolio</h3>
-
-                  <p class="project-category">Web development</p>
-                </a>
-              </li>
-
-              <!-- RozorPay Clone -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="web design"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-10.png"
-                      alt="Purchasing"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">Razorpay Clone</h3>
-
-                  <p class="project-category">Web design</p>
-                </a>
-              </li>
-
-              <!-- News Now App -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="applications"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-8.png"
-                      alt="News Now"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">News Now</h3>
-
-                  <p class="project-category">Applications</p>
-                </a>
-              </li>
-
-              <!-- My Meal -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="web development"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-1.png"
-                      alt="website"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">My Meal</h3>
-
-                  <p class="project-category">Web development</p>
-                </a>
-              </li>
-
-              <!-- Tin Dog -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="web development"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-2.png"
-                      alt="Dating"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">Dating</h3>
-
-                  <p class="project-category">Web development</p>
-                </a>
-              </li>
-
-              <!-- Purchasing -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="web design"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-6.png"
-                      alt="Purchasing"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">Purchasing</h3>
-
-                  <p class="project-category">Web design</p>
-                </a>
-              </li>
-
-              <!-- Contact Page -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="web design"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-3.png"
-                      alt="Contact Page"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">Contact Page</h3>
-
-                  <p class="project-category">Web design</p>
-                </a>
-              </li>
-
-              <!-- Online Mart -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="applications"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-4.png"
-                      alt="Online Mart"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">AllMart -> Ecommerce Android Application</h3>
-
-                  <p class="project-category">Applications</p>
-                </a>
-              </li>
-
-              <!-- Console Ad -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="web design"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-5.png"
-                      alt="Console"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">Console</h3>
-
-                  <p class="project-category">Web design</p>
-                </a>
-              </li>
-
-              <!-- About Page -->
-              <li
-                class="project-item active"
-                data-filter-item
-                data-category="web design"
-              >
-                <a href="#">
-                  <figure class="project-img">
-                    <div class="project-item-icon-box">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-
-                    <img
-                      src="./assets/images/project-7.png"
-                      alt="Summary"
-                      loading="lazy"
-                    />
-                  </figure>
-
-                  <h3 class="project-title">Summary</h3>
-
-                  <p class="project-category">Web design</p>
-                </a>
-              </li>
-            </ul>
           </section>
         </article>
 
