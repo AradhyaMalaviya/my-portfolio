@@ -1130,12 +1130,12 @@
                 value="New portfolio message"
               />
               <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
-
+              <!-- FormSubmit _captcha enabled to prevent spam bots -->
+              <input type="hidden" name="_captcha" value="true" />
               <div class="input-wrapper">
                 <input
                   type="text"
-                  name="fullname"
+                  name="name"
                   class="form-input"
                   placeholder="Full name"
                   required
