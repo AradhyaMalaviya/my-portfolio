@@ -158,10 +158,13 @@ textarea {
 
 html {
   font-family: var(--ff-poppins);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: url("../images/light-bg.jpg") center/cover fixed no-repeat;
+  background: #0a0a0f;
+  overflow-x: hidden;
+  position: relative;
 }
 
 /*-----------------------------------*\
@@ -365,8 +368,16 @@ main {
   font-size: var(--fs-8);
   font-weight: var(--fw-300);
   width: max-content;
+  min-width: 120px;
   padding: 3px 12px;
   border-radius: 8px;
+  display: inline-block;
+}
+
+.info-content .title + .typed-cursor {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1px;
 }
 
 .info_more-btn {
@@ -2641,4 +2652,422 @@ footer {
   color: white;
   text-align: center;
   padding: 20px;
+}
+
+/* ==============================================
+   PREMIUM VISUAL ENHANCEMENTS
+   ============================================== */
+
+/* ── Animated floating orbs background ── */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(130px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::before {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, hsla(45, 100%, 72%, 0.07), transparent 70%);
+  top: -180px;
+  right: -180px;
+  animation: floatOrb1 22s ease-in-out infinite;
+}
+
+body::after {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, hsla(210, 80%, 55%, 0.05), transparent 70%);
+  bottom: -120px;
+  left: -120px;
+  animation: floatOrb2 28s ease-in-out infinite;
+}
+
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%      { transform: translate(40px, -60px) scale(1.08); }
+  50%      { transform: translate(-20px, 50px) scale(0.95); }
+  75%      { transform: translate(60px, 20px) scale(1.04); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-50px, -40px) scale(1.1); }
+  66%      { transform: translate(40px, 60px) scale(0.92); }
+}
+
+/* Third orb via a wrapper pseudo-element */
+main::before {
+  content: "";
+  position: fixed;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsla(280, 60%, 50%, 0.04), transparent 70%);
+  top: 50%;
+  left: 50%;
+  filter: blur(100px);
+  z-index: -1;
+  pointer-events: none;
+  animation: floatOrb1 30s ease-in-out infinite reverse;
+}
+
+/* ── Scroll reveal animations ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.40s; }
+
+/* ── Enhanced page transition ── */
+article.active {
+  animation: slideUpFade 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Sidebar hover glow ── */
+.sidebar {
+  transition: var(--transition-2), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.sidebar:hover {
+  border-color: hsla(45, 100%, 72%, 0.1);
+  box-shadow: var(--shadow-1), 0 0 50px hsla(45, 100%, 72%, 0.03);
+}
+
+/* ── Animated gradient ring on avatar ── */
+.avatar-box {
+  position: relative;
+  overflow: visible;
+  padding: 3px;
+}
+
+.avatar-box::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    hsl(45, 100%, 72%),
+    hsl(35, 100%, 68%),
+    hsl(200, 70%, 55%),
+    hsl(280, 50%, 55%),
+    hsl(45, 100%, 72%)
+  );
+  z-index: -1;
+  animation: rotateGradient 5s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes rotateGradient {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Animated article-title underline ── */
+.article-title::after {
+  background: linear-gradient(90deg, hsl(45,100%,72%), hsl(35,100%,68%), hsl(45,100%,72%));
+  background-size: 200% 100%;
+  animation: gradientSlide 3s ease infinite;
+  transition: width 0.4s ease;
+}
+
+.article-title:hover::after {
+  width: 60px;
+}
+
+@keyframes gradientSlide {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Service cards hover ── */
+.service-item {
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-2), 0 0 30px hsla(45,100%,72%,0.035);
+}
+
+/* ── Experience/testimonial cards ── */
+.content-card {
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.4s ease;
+}
+
+.content-card:hover {
+  transform: translateY(-4px) scale(1.008);
+  box-shadow: var(--shadow-3), 0 0 35px hsla(45,100%,72%,0.04);
+}
+
+/* ── Animated skill bars ── */
+.skill-progress-fill {
+  background: linear-gradient(90deg, hsl(45,100%,72%), hsl(35,100%,68%), hsl(25,100%,65%));
+  background-size: 200% 100%;
+  animation: skillShimmer 3s ease infinite;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+
+.skill-progress-fill.animated {
+  transform: scaleX(1);
+}
+
+@keyframes skillShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Navbar active indicator line ── */
+.navbar-link {
+  position: relative;
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 18px;
+  height: 2px;
+  background: var(--orange-yellow-crayola);
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+
+.navbar-link.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ── Social link buttons ── */
+.social-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 0 7px 4px;
+}
+
+.social-item .social-link {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: hsla(0,0%,100%,0.04);
+  border: 1px solid hsla(0,0%,100%,0.06);
+  color: var(--light-gray-70);
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.social-item .social-link:hover {
+  color: var(--orange-yellow-crayola);
+  background: hsla(45,100%,72%,0.08);
+  border-color: hsla(45,100%,72%,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px hsla(45,100%,72%,0.1);
+}
+
+/* ── Timeline dot pulse ── */
+.timeline-item::after {
+  animation: dotPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 0 4px var(--jet); }
+  50%      { box-shadow: 0 0 0 6px var(--jet), 0 0 14px hsla(45,100%,72%,0.18); }
+}
+
+/* ── Enhanced certificate cards ── */
+.blog-post-item > a {
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.4s ease;
+}
+
+.blog-post-item > a:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-4), 0 0 35px hsla(45,100%,72%,0.04);
+}
+
+/* ── Contact form input focus glow ── */
+.form-input:focus {
+  border-color: var(--orange-yellow-crayola);
+  box-shadow: 0 0 0 3px hsla(45,100%,72%,0.07);
+}
+
+/* ── Map glow ── */
+.mapbox {
+  transition: box-shadow 0.4s ease;
+}
+
+.mapbox:hover {
+  box-shadow: 0 0 30px hsla(45,100%,72%,0.05);
+}
+
+/* ── Typed cursor ── */
+.typed-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--orange-yellow-crayola);
+  margin-left: 2px;
+  animation: cursorBlink 0.75s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* ── Enhanced icon-box hover ── */
+.icon-box {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon-box:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-1), 0 0 12px hsla(45,100%,72%,0.08);
+}
+
+/* ── Better text selection ── */
+::selection {
+  background: hsla(45, 100%, 72%, 0.25);
+  color: var(--white-1);
+}
+
+/* ── Scroll-to-top button ── */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: hsla(240,2%,13%,0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--jet);
+  color: var(--orange-yellow-crayola);
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.35s ease;
+  z-index: 10;
+  box-shadow: var(--shadow-2);
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+  background: hsla(45,100%,72%,0.1);
+  border-color: hsla(45,100%,72%,0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px hsla(45,100%,72%,0.12);
+}
+
+/* ── Enhanced GitHub card hover accent ── */
+.gh-card:hover .gh-card-icon {
+  background: hsla(45,100%,72%,0.14);
+  box-shadow: 0 0 16px hsla(45,100%,72%,0.08);
+}
+
+.gh-card-icon {
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* ── Premium footer ── */
+footer {
+  background: linear-gradient(180deg, transparent 0%, hsla(240,2%,8%,0.95) 100%);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid hsla(0,0%,100%,0.04);
+  padding: 32px 20px 24px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.footer-social a {
+  color: var(--light-gray-70);
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: var(--orange-yellow-crayola);
+  transform: translateY(-2px);
+}
+
+.footer-divider {
+  width: 36px;
+  height: 2px;
+  background: var(--text-gradient-yellow);
+  margin: 0 auto 14px;
+  border-radius: 2px;
+}
+
+.footer-copyright {
+  color: hsla(0,0%,84%,0.35);
+  font-size: 11px;
+  font-weight: var(--fw-300);
+  letter-spacing: 0.4px;
+}
+
+/* ── Stagger animation for service grid ── */
+.service-item:nth-child(1) { animation-delay: 0.05s; }
+.service-item:nth-child(2) { animation-delay: 0.1s; }
+.service-item:nth-child(3) { animation-delay: 0.15s; }
+.service-item:nth-child(4) { animation-delay: 0.2s; }
+
+/* ── Responsive social list ── */
+@media (min-width: 1250px) {
+  .social-list {
+    justify-content: center;
+  }
 }

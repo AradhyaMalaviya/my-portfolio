@@ -454,3 +454,169 @@ if (certificateModal) {
   });
 }
 
+
+// ──────────────────────────────────────────────
+//  SCROLL REVEAL — IntersectionObserver
+// ──────────────────────────────────────────────
+
+(function initScrollReveal() {
+  // Auto-tag elements that should reveal on scroll
+  const revealSelectors = [
+    '.about-text',
+    '.service',
+    '.service-item',
+    '.testimonials',
+    '.testimonials-item',
+    '.timeline',
+    '.skill',
+    '.skills-list',
+    '.blog-posts',
+    '.blog-post-item',
+    '.contact-form',
+    '.mapbox',
+    '#github-projects-section',
+  ];
+
+  revealSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      if (!el.classList.contains('reveal')) {
+        el.classList.add('reveal');
+        // Stagger siblings
+        if (i > 0 && i <= 5) {
+          el.classList.add(`reveal-delay-${i}`);
+        }
+      }
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+})();
+
+
+// ──────────────────────────────────────────────
+//  TYPING ANIMATION
+// ──────────────────────────────────────────────
+
+(function initTypingAnimation() {
+  const el = document.getElementById('typed-role');
+  if (!el) return;
+
+  const roles = [
+    'Software Developer',
+    'Full Stack Developer',
+    'Java Developer',
+    'Web Developer',
+    'Problem Solver',
+  ];
+
+  let roleIdx = 0;
+  let charIdx = 0;
+  let isDeleting = false;
+  const typeSpeed = 80;
+  const deleteSpeed = 45;
+  const pauseEnd = 2000;
+  const pauseStart = 500;
+
+  // Add cursor
+  const cursor = document.createElement('span');
+  cursor.className = 'typed-cursor';
+  cursor.textContent = '|';
+  el.parentNode.insertBefore(cursor, el.nextSibling);
+
+  function tick() {
+    const current = roles[roleIdx];
+
+    if (isDeleting) {
+      charIdx--;
+      el.textContent = current.substring(0, charIdx);
+    } else {
+      charIdx++;
+      el.textContent = current.substring(0, charIdx);
+    }
+
+    let delay = isDeleting ? deleteSpeed : typeSpeed;
+
+    if (!isDeleting && charIdx === current.length) {
+      delay = pauseEnd;
+      isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+      isDeleting = false;
+      roleIdx = (roleIdx + 1) % roles.length;
+      delay = pauseStart;
+    }
+
+    setTimeout(tick, delay);
+  }
+
+  // Start after a brief delay
+  setTimeout(tick, 1200);
+})();
+
+
+// ──────────────────────────────────────────────
+//  ANIMATED SKILL BARS
+// ──────────────────────────────────────────────
+
+(function initSkillBars() {
+  const fills = document.querySelectorAll('.skill-progress-fill');
+  if (!fills.length) return;
+
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Stagger the animation
+        const items = entry.target.querySelectorAll
+          ? document.querySelectorAll('.skill-progress-fill')
+          : [entry.target];
+
+        items.forEach((fill, i) => {
+          setTimeout(() => {
+            fill.classList.add('animated');
+          }, i * 100);
+        });
+
+        skillObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  // Observe the skills container
+  const skillSection = document.querySelector('.skill');
+  if (skillSection) {
+    skillObserver.observe(skillSection);
+  }
+})();
+
+
+// ──────────────────────────────────────────────
+//  SCROLL-TO-TOP BUTTON
+// ──────────────────────────────────────────────
+
+(function initScrollTop() {
+  const btn = document.getElementById('scroll-top-btn');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
