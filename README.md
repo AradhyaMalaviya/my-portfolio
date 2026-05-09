@@ -1,5 +1,6 @@
 # 🎯 Personal Portfolio Website
-You can add the live website link here after deployment.
+
+> **Live Website:** [Add your deployed link here]
 
 ---
 
@@ -13,48 +14,45 @@ Welcome to my **Personal Portfolio Website**, a platform where I showcase my ski
 
 ## 🌟 Overview
 
-This website includes the following sections:
 
-- **About Me** – A brief introduction and my career aspirations  
-- **Skills** – Programming languages, frameworks, and tools I work with  
-- **Projects** – Personal and academic projects with descriptions  
-- **Certifications** – Certifications earned during my learning journey  
-- **Education** – Academic background (B.Tech in Computer Science)  
-- **Contact** – Contact form to connect with me  
+**Website Sections:**
+- **About Me** – Introduction, career aspirations, and background
+- **Skills** – Programming languages, frameworks, and tools
+- **Projects** – Personal, academic, and internship projects with images
+- **Certifications** – Interactive certificate gallery with previews
+- **Education** – Academic background (B.Tech in Computer Science)
+- **Contact** – Contact form (FormSubmit integration)
 
 ![Portfolio Overview](https://github.com/user-attachments/assets/17303f52-fac3-4da2-b41f-f1861e968d23)
 
 ---
 
-## 🎯 Job Seeking
 
-I am actively seeking opportunities in **Software Development**, especially in roles related to **Full-Stack Development**. I have a strong foundation in web technologies, databases, and problem-solving, and I am eager to work on real-world projects.
+## 🎯 Career Objective
+
+Actively seeking **Software Developer** and **Full-Stack Developer** roles. Experienced in:
+- Full-stack web development (React, Node.js, Express, Java, Spring Boot)
+- UI/UX design (Figma, Tailwind CSS, Bootstrap)
+- Database management (MySQL, MongoDB)
+- Version control (Git, GitHub)
+- Deployment (Vercel, Netlify)
 
 ---
 
 ## 🔧 Technology Stack
 
-**Languages**
-- Java  
-- JavaScript  
-- HTML  
-- CSS  
 
-**Frameworks & Libraries**
-- Bootstrap  
-- jQuery  
-- EJS  
+**Languages:**
+- Java, JavaScript, HTML, CSS, Python
 
-**Tools**
-- Git  
-- GitHub  
-- Android Studio  
-- IntelliJ IDEA  
-- VS Code  
-- Bash  
+**Frameworks & Libraries:**
+- React, Node.js, Express, Bootstrap, Tailwind CSS, jQuery, EJS
 
-**Databases**
-- MySQL  
+**Tools:**
+- Git, GitHub, Android Studio, IntelliJ IDEA, VS Code, Bash, Figma
+
+**Databases:**
+- MySQL, MongoDB
 
 <img width="1801" height="823" alt="image" src="https://github.com/user-attachments/assets/59828f84-86d2-414d-a445-704156bca23f" />
 
@@ -63,21 +61,26 @@ I am actively seeking opportunities in **Software Development**, especially in r
 
 ## 🚀 Live Preview
 
-Add the live version of the portfolio here after deployment.
+
+> The live version will be added after deployment.
 
 ---
 
+
 ## 📈 Highlights
 
-- Showcases **5+ personal and academic projects**
-- Contact form sends messages to my email address
-- Fully responsive design for desktop and mobile
-- Clean and modern UI  
+- **10+ personal, academic, and internship projects** with images and category filters
+- **Contact form** (FormSubmit) sends messages directly to my email
+- **Fully responsive** design for desktop and mobile
+- **Modern, dark-themed UI** with custom CSS and gradients
+- **Interactive certifications gallery** with modal previews
+- **Accessible navigation** and smooth user experience
 
 <img width="1691" height="1033" alt="image" src="https://github.com/user-attachments/assets/446bdab4-a8a0-4e99-8e87-bd0f85678c88" />
 
 
 ---
+
 
 ## 📱 Mobile View
 
@@ -90,18 +93,29 @@ Add the live version of the portfolio here after deployment.
 
 ---
 
-## 📝 Future Goals
+## 🏆 Certifications
 
-As I continue my journey in software development, I plan to:
-
-- Contribute to **open-source projects**
-- Build advanced **Full-Stack and Android applications**
-- Strengthen my knowledge of **DBMS and cloud platforms**
+All certificates are viewable in the **Certifications** section with modal previews. Recent certificates include:
+- AWS: Fundamentals of Generative AI, Foundations of Prompt Engineering, Introduction to Generative AI
+- Anthropic: Introduction to Agent Skills, Introduction to Subagents
+- OnWingspan: Basics of Python
 
 ---
 
-Thank you for visiting my portfolio.  
-Feel free to connect with me for **collaboration, internships, or job opportunities**.
+
+## 📝 Future Goals
+
+- Contribute to **open-source projects**
+- Build advanced **Full-Stack and Android applications**
+- Strengthen knowledge of **DBMS, cloud platforms, and AI**
+- Participate in more **hackathons** and collaborative projects
+
+---
+
+
+Thank you for visiting my portfolio!
+
+Feel free to connect for **collaboration, internships, or job opportunities**.
 
 ---
 
