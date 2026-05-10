@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="title desc">
+  <title id="title">Fundamentals of Machine Learning and Artificial Intelligence certificate preview</title>
+  <desc id="desc">Preview card for an AWS Training completion certificate awarded to Aaradhya Malaviya.</desc>
+  <rect width="1000" height="700" fill="#f7f3ea"/>
+  <rect x="42" y="42" width="916" height="616" rx="18" fill="#fffdf8" stroke="#d4a54f" stroke-width="8"/>
+  <rect x="74" y="74" width="852" height="552" rx="12" fill="none" stroke="#223047" stroke-width="2"/>
+  <text x="500" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#223047">AWS TRAINING &amp; CERTIFICATION</text>
+  <text x="500" y="204" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#8a6a2f">Completion Certificate</text>
+  <text x="500" y="262" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#4b5563">Awarded to</text>
+  <text x="500" y="318" text-anchor="middle" font-family="Georgia, serif" font-size="44" font-weight="700" fill="#111827">Aaradhya Malaviya</text>
+  <line x1="270" y1="348" x2="730" y2="348" stroke="#d4a54f" stroke-width="3"/>
+  <text x="500" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#223047">Fundamentals of Machine</text>
+  <text x="500" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#223047">Learning and Artificial Intelligence</text>
+  <text x="500" y="548" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#4b5563">Completed: May 10, 2026</text>
+  <circle cx="830" cy="528" r="54" fill="#d4a54f" opacity="0.22"/>
+  <circle cx="830" cy="528" r="38" fill="none" stroke="#d4a54f" stroke-width="4"/>
+  <text x="830" y="537" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#8a6a2f">AWS</text>
+</svg>

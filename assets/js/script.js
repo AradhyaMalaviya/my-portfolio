@@ -116,11 +116,57 @@ function timeAgo(dateStr) {
 }
 
 /**
+ * Generate a color from string hash
+ */
+function hashColor(str, offset = 0) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  hash += offset * 1000;
+  const h = Math.abs(hash) % 360;
+  return `hsl(${h}, 70%, 60%)`;
+}
+
+/**
+ * 3D Tilt Effect
+ */
+function applyTiltEffect(card) {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -10; 
+    const rotateY = ((x - centerX) / centerX) * 10;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    
+    const glare = card.querySelector('.gh-card-glare');
+    if (glare) {
+      glare.style.transform = `translate(${x - rect.width}px, ${y - rect.height}px)`;
+      glare.style.opacity = '0.6';
+    }
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    const glare = card.querySelector('.gh-card-glare');
+    if (glare) {
+      glare.style.opacity = '0';
+    }
+  });
+}
+
+/**
  * Build a single project-card <li> element
  */
 function createProjectCard(repo, index) {
   const li = document.createElement("li");
-  li.className = "gh-card";
+  li.className = "gh-card premium-card";
   li.dataset.language = (repo.language || "Other").toLowerCase();
   li.style.animationDelay = `${index * 0.06}s`;
 
@@ -143,50 +189,61 @@ function createProjectCard(repo, index) {
     </a>`;
   }
 
+  const color1 = hashColor(repo.name, 1);
+  const color2 = hashColor(repo.name, 2);
+
   li.innerHTML = `
-    <div class="gh-card-header">
-      <div class="gh-card-title-row">
-        <div class="gh-card-icon">
-          <ion-icon name="code-slash-outline"></ion-icon>
+    <div class="gh-card-glare"></div>
+    <div class="gh-card-banner" style="background: linear-gradient(135deg, ${color1}, ${color2});">
+       <div class="gh-card-banner-overlay"></div>
+       <div class="gh-card-icon-large">
+         <ion-icon name="folder-open-outline"></ion-icon>
+       </div>
+    </div>
+    <div class="gh-card-content">
+      <div class="gh-card-header">
+        <div class="gh-card-title-row">
+          <h3 class="gh-card-name">${formatRepoName(repo.name)}</h3>
         </div>
-        <h3 class="gh-card-name">${formatRepoName(repo.name)}</h3>
+        ${forkBadge}
       </div>
-      ${forkBadge}
-    </div>
 
-    <div class="gh-card-body">
-      <p class="${descClass}">${description}</p>
+      <div class="gh-card-body">
+        <p class="${descClass}">${description}</p>
 
-      <div class="gh-card-meta">
-        ${repo.language ? `<span class="gh-meta-item">
-          <span class="gh-lang-dot" style="--lang-color:${langColor}"></span>
-          <span>${repo.language}</span>
-        </span>` : ""}
-        <span class="gh-meta-item">
-          <ion-icon name="star-outline"></ion-icon>
-          <span>${repo.stargazers_count}</span>
-        </span>
-        <span class="gh-meta-item">
-          <ion-icon name="git-branch-outline"></ion-icon>
-          <span>${repo.forks_count}</span>
-        </span>
+        <div class="gh-card-meta">
+          ${repo.language ? `<span class="gh-meta-item">
+            <span class="gh-lang-dot" style="--lang-color:${langColor}; box-shadow: 0 0 8px ${langColor}"></span>
+            <span>${repo.language}</span>
+          </span>` : ""}
+          <span class="gh-meta-item">
+            <ion-icon name="star"></ion-icon>
+            <span>${repo.stargazers_count}</span>
+          </span>
+          <span class="gh-meta-item">
+            <ion-icon name="git-branch"></ion-icon>
+            <span>${repo.forks_count}</span>
+          </span>
+        </div>
       </div>
-    </div>
 
-    <div class="gh-card-footer">
-      <div class="gh-card-actions">
-        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="gh-btn gh-btn-secondary">
-          <ion-icon name="logo-github"></ion-icon>
-          <span>Source</span>
-        </a>
-        ${demoBtn}
+      <div class="gh-card-footer">
+        <div class="gh-card-actions">
+          <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="gh-btn gh-btn-secondary">
+            <ion-icon name="logo-github"></ion-icon>
+            <span>Source</span>
+          </a>
+          ${demoBtn}
+        </div>
+        <p class="gh-card-updated">
+          <ion-icon name="time-outline"></ion-icon>
+          ${timeAgo(repo.pushed_at)}
+        </p>
       </div>
-      <p class="gh-card-updated">
-        <ion-icon name="time-outline"></ion-icon>
-        ${timeAgo(repo.pushed_at)}
-      </p>
     </div>
   `;
+  
+  applyTiltEffect(li);
   return li;
 }
 
