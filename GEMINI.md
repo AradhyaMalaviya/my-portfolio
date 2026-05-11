@@ -1,53 +1,57 @@
 # Personal Portfolio Website - Project Context
 
 ## Project Overview
-This repository contains the Personal Portfolio Website for Aaradhya Malaviya. It is a static, highly interactive, and fully responsive front-end web application designed to showcase the developer's skills, projects, certifications, and career objectives. It acts as a comprehensive digital resume.
+This repository contains the Personal Portfolio Website for Aaradhya Malaviya. It is a static, highly interactive, and fully responsive front-end web application designed to showcase the developer's skills, projects, certifications, and career objectives. It acts as a comprehensive digital resume with a premium, modern aesthetic.
 
 ### Main Technologies
 *   **HTML5:** Semantic markup structure in a Single Page Application (SPA) style layout.
-*   **CSS3 (Vanilla):** Extensive use of custom CSS variables for theming, complex gradients, glassmorphism, responsive design (media queries), and premium UI animations (floating background orbs, scroll reveals). 
-*   **JavaScript (Vanilla ES6):** Handles UI interactions, intersection observers for scroll animations, dynamic GitHub API data fetching, and AJAX form submissions.
-*   **GitHub API:** Used to dynamically fetch and display projects from the `AradhyaMalaviya` GitHub account.
-*   **FormSubmit:** An external service used to process the contact form without requiring a custom backend.
+*   **CSS3 (Vanilla):** Extensive use of custom CSS variables for theming, complex gradients, glassmorphism (`backdrop-filter`), responsive design, and premium UI animations (floating background orbs, scroll reveals).
+*   **JavaScript (Vanilla ES6):** Handles all UI logic, including:
+    *   **Dynamic GitHub API:** Fetches and renders repositories with language-based filtering, skeleton loading, and retry logic.
+    *   **Interactivity:** 3D tilt effects on cards, typing animations for roles, and staggered scroll reveals.
+    *   **Modals:** Custom modal systems for testimonials and certification previews (PDF/Image support).
+*   **AI/ML Stack (Project Focus):** Projects leverage Python, FastAPI, PyTorch, Scikit-learn, OpenCV, and EasyOCR.
+*   **FormSubmit:** Process contact form submissions with AJAX, providing real-time feedback (Loading/Success/Error).
 *   **Ionicons:** Icon library integrated via CDN.
 
 ## Project Architecture & Directory Structure
-*   `index.html`: The core HTML file containing the entire single-page structure (About, Resume, Projects, Certifications, Contact).
-*   `404.html`: A stylized custom error page for broken links.
-*   `assets/css/style.css`: The central stylesheet. It contains a robust set of CSS variables defining the design system, including a full set of variables mapped for `.light-theme` compatibility.
-*   `assets/js/script.js`: The central JavaScript file. Contains logic for:
-    *   Sidebar toggling and page navigation.
-    *   Fetching and rendering GitHub repositories with 3D tilt effects.
-    *   Intersection Observer implementations for staggered fade-in scroll animations (`.reveal`, `.fade-in`).
-    *   Light/Dark mode local storage and toggling.
-    *   AJAX handling for the FormSubmit contact form.
-    *   Modal handling for testimonials and certificates.
-*   `assets/images/`: Contains all static images, SVGs, and avatars used across the site.
-*   `assets/certificates/`: Contains PDF or SVG versions of acquired certificates.
-*   `resume file/`: Houses the downloadable resume document.
+*   `index.html`: The core HTML file containing the entire single-page structure.
+*   `404.html`: A stylized custom error page matching the main theme.
+*   `indeed-application-queue.md`: Tracking document for job applications, candidate positioning, and screening answers.
+*   `assets/css/style.css`: The central stylesheet. Contains a robust set of CSS variables and specific overrides for `.light-theme`.
+*   `assets/js/script.js`: The central logic file, organized into modules:
+    *   `initThemeToggle`: Manages light/dark mode with local storage persistence.
+    *   `loadGitHubProjects`: Handles API fetching, card generation, and 3D tilt initialization.
+    *   `initScrollReveal`: Uses `IntersectionObserver` to automate fade-in animations.
+    *   `initTypingAnimation`: Animates the developer roles in the header/sidebar.
+    *   `initCertificateModal`: Specific modal logic for certification previews.
+*   `assets/images/`: Contains static images, SVGs, and avatars.
+    *   `assets/images/certificates/`: SVG previews for certificates.
+*   `assets/certificates/`: Source PDF or JPG versions of acquired certificates.
+*   `resume file/`: Houses the downloadable resume documents.
 
 ## Building and Running
-Because this is a vanilla static site, no complex build tools (like Webpack or Vite) are strictly required for the core application. 
+The project is a vanilla static site. No build tools are required for development, though a `src/` and `dist/` structure exists for potential future scaling.
 
 **To run locally:**
-Use any standard local HTTP server in the root directory.
-*   Using Python: `python -m http.server 8000`
-*   Using Node.js: `npx serve` or `npx http-server`
-*   Using VS Code: The "Live Server" extension.
+Use any standard local HTTP server in the root directory:
+*   `npx serve` or `npx http-server`
+*   Python: `python -m http.server 8000`
+*   VS Code: "Live Server" extension.
 
 **To deploy:**
-The `index.html`, `404.html`, and `assets/` folder can be directly deployed to static hosting providers such as Vercel, Netlify, or GitHub Pages.
+Deploy the root files (`index.html`, `404.html`, `assets/`) directly to Vercel, Netlify, or GitHub Pages.
 
 ## Development Conventions
-1.  **Styling & Theming:** 
-    *   **Do not use Tailwind or Bootstrap.** Maintain the existing custom vanilla CSS architecture.
-    *   Always utilize the defined CSS variables (e.g., `var(--orange-yellow-crayola)`, `var(--bg-gradient-onyx)`) to maintain brand consistency.
-    *   When adding new UI elements, ensure they respect the Light/Dark mode toggle by defining appropriate variable overrides inside the `body.light-theme` selector in `style.css`.
-2.  **JavaScript Interactivity:**
-    *   Stick to Vanilla JS. Avoid introducing heavy frameworks like React or jQuery for simple DOM manipulation.
-    *   Wrap feature initialization in IIFE (Immediately Invoked Function Expressions) or distinct functions to avoid polluting the global namespace (e.g., `(function initThemeToggle() { ... })();`).
+1.  **Styling & Theming:**
+    *   **Vanilla CSS Only:** Do not introduce Tailwind or Bootstrap.
+    *   **Theming:** Always use CSS variables. Ensure new elements support `.light-theme` by defining overrides in `style.css`.
+    *   **Glassmorphism:** Use `backdrop-filter: blur(10px)` and semi-transparent backgrounds for the "premium" feel.
+2.  **Animations:**
+    *   **Scroll Reveal:** Apply the `.reveal` class to new sections. The `script.js` observer will handle the `revealed` state.
+    *   **Card Effects:** Projects should use the `gh-card premium-card` classes to inherit 3D tilt and hover effects.
 3.  **Project Content:**
-    *   The "Projects" section is populated dynamically from GitHub. To update project descriptions, tags, or links, do so directly on the repository settings at GitHub, not within the HTML.
-4.  **Animations:**
-    *   Use CSS transitions and keyframes for hover effects and continuous background animations.
-    *   For scroll-triggered animations, apply the `.reveal` or `.hidden-fade` classes in HTML and let the central IntersectionObservers in `script.js` handle the visibility toggling.
+    *   The "Projects" section is dynamic. Updates to descriptions or links should be made on GitHub.
+    *   The "Certifications" section is static in `index.html`. New certificates require an `<li>` in the `certifications` article and matching files in `assets/certificates/`.
+4.  **Job Tracking:**
+    *   Keep `indeed-application-queue.md` updated with recent applications and screening responses to maintain consistency across job platforms.
