@@ -1486,6 +1486,14 @@ textarea.form-input::-webkit-resizer {
   background: var(--bg-gradient-jet);
 }
 
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
 /*-----------------------------------*\
     #GITHUB PROJECTS
   \*-----------------------------------*/
@@ -3222,4 +3230,69 @@ footer {
   margin-top: 15px;
   font-size: 12px;
   color: hsla(0, 0%, 84%, 0.5);
+}
+
+/* ──────────────────────────────────────────────
+   LIGHT THEME VARIABLES
+   ────────────────────────────────────────────── */
+
+body.light-theme {
+  --bg-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 95%) 3%, hsl(0, 0%, 100%) 97%);
+  --bg-gradient-jet: linear-gradient(to bottom right, hsla(0, 0%, 95%, 0.5) 0%, hsla(0, 0%, 100%, 0) 100%), hsl(0, 0%, 98%);
+  --border-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 85%) 0%, hsla(0, 0%, 85%, 0) 50%);
+  --jet: hsl(0, 0%, 90%);
+  --onyx: hsl(0, 0%, 95%);
+  --eerie-black-1: hsl(0, 0%, 98%);
+  --eerie-black-2: hsl(0, 0%, 100%);
+  --smoky-black: hsl(0, 0%, 98%);
+  --white-1: hsl(0, 0%, 15%);
+  --white-2: hsl(0, 0%, 25%);
+  --light-gray: hsl(0, 0%, 35%);
+  --light-gray-70: hsla(0, 0%, 35%, 0.7);
+  --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.05);
+  --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.05);
+  --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.05);
+  --shadow-4: 0 25px 50px hsla(0, 0%, 0%, 0.05);
+  --shadow-5: 0 24px 80px hsla(0, 0%, 0%, 0.05);
+}
+
+body.light-theme .form-btn,
+body.light-theme .navbar-link,
+body.light-theme .info_more-btn {
+  color: var(--white-1);
+}
+
+body.light-theme .gh-card-content {
+  background: linear-gradient(180deg, hsla(0, 0%, 100%, 0.4) 0%, hsla(0, 0%, 98%, 0.9) 100%);
+}
+
+body.light-theme .premium-card .gh-btn-secondary {
+  color: var(--white-1);
+  background: hsla(0, 0%, 0%, 0.05);
+  border-color: hsla(0, 0%, 0%, 0.1);
+}
+
+body.light-theme .premium-card .gh-card-name {
+  background: linear-gradient(90deg, var(--white-1), var(--orange-yellow-crayola));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.light-theme .contact-link {
+  color: var(--white-2);
+}
+
+/* ──────────────────────────────────────────────
+   SCROLL ANIMATIONS (Fade In)
+   ────────────────────────────────────────────── */
+
+.hidden-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
 }

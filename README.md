@@ -96,9 +96,21 @@ Actively seeking **Software Developer** and **Full-Stack Developer** roles. Expe
 ## 🏆 Certifications
 
 All certificates are viewable in the **Certifications** section with modal previews. Recent certificates include:
-- AWS: Fundamentals of Generative AI, Foundations of Prompt Engineering, Introduction to Generative AI
+- AWS: Fundamentals of Machine Learning and Artificial Intelligence, Fundamentals of Generative AI, Foundations of Prompt Engineering, Introduction to Generative AI
 - Anthropic: Introduction to Agent Skills, Introduction to Subagents
 - OnWingspan: Basics of Python
+
+---
+
+## 🔄 Recent Updates (Last Week)
+
+- **UX/Recruiter Enhancements:** Added a seamless Light/Dark mode toggle, smooth scroll fade-in animations, a prominent "Download Resume" button, and improved Contact Form submission feedback with loading states.
+- **Custom Pages:** Built a stylized 404 error page matching the portfolio's aesthetic.
+- **Certifications:** Added AWS Machine Learning and Artificial Intelligence certificate.
+- **Projects Section:** Overhauled with interactive 3D effects and modern UI improvements.
+- **UI/UX:** Major styling and interactivity enhancements across the website.
+- **Resume:** Updated personal resume file and synced content.
+- **Tracking:** Added an application queue for job tracking.
 
 ---
 

@@ -387,6 +387,42 @@ if (form && submitBtn) {
       submitBtn.disabled = !form.checkValidity();
     });
   });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = `<ion-icon name="sync-outline" class="spin"></ion-icon> <span>Sending...</span>`;
+    submitBtn.disabled = true;
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        submitBtn.innerHTML = `<ion-icon name="checkmark-circle-outline"></ion-icon> <span>Sent Successfully!</span>`;
+        form.reset();
+        setTimeout(() => {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = !form.checkValidity();
+        }, 3000);
+      } else {
+        throw new Error("Failed to send");
+      }
+    } catch (error) {
+      submitBtn.innerHTML = `<ion-icon name="close-circle-outline"></ion-icon> <span>Error, try again.</span>`;
+      setTimeout(() => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = !form.checkValidity();
+      }, 3000);
+    }
+  });
 }
 
 
@@ -607,3 +643,55 @@ if (certificateModal) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
+
+// ──────────────────────────────────────────────
+//  LIGHT / DARK MODE TOGGLE
+// ──────────────────────────────────────────────
+
+(function initThemeToggle() {
+  const themeBtn = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  if (!themeBtn || !themeIcon) return;
+
+  // Check system preference or localStorage
+  const currentTheme = localStorage.getItem('theme');
+  if (currentTheme === 'light') {
+    document.body.classList.add('light-theme');
+    themeIcon.setAttribute('name', 'moon-outline');
+  }
+
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-theme');
+    let theme = 'dark';
+    if (document.body.classList.contains('light-theme')) {
+      theme = 'light';
+      themeIcon.setAttribute('name', 'moon-outline');
+    } else {
+      themeIcon.setAttribute('name', 'sunny-outline');
+    }
+    localStorage.setItem('theme', theme);
+  });
+})();
+
+// ──────────────────────────────────────────────
+//  SCROLL ANIMATIONS (Fade In)
+// ──────────────────────────────────────────────
+
+(function initScrollAnimations() {
+  const elementsToAnimate = document.querySelectorAll('.service-item, .testimonials-item, .timeline-item, .project-item, .blog-post-item');
+  
+  const scrollObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  elementsToAnimate.forEach(el => {
+    el.classList.add('hidden-fade');
+    scrollObserver.observe(el);
+  });
+})();
+
