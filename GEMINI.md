@@ -31,6 +31,7 @@ This repository contains the Personal Portfolio Website for Aaradhya Malaviya. I
 *   `assets/images/`: Contains static images, SVGs, and avatars.
     *   `assets/images/certificates/`: SVG previews for certificates.
     *   `assets/images/projects/`: PNG preview images for project cards (mapped via `PROJECT_PREVIEWS` in `script.js`).
+    *   `assets/images/readme/`: Real screenshots captured from the live portfolio for the README.md (hero, projects, resume, certifications, contact, mobile views, and live project pages).
 *   `assets/certificates/`: Source PDF or JPG versions of acquired certificates.
 *   `resume file/`: Houses the downloadable resume documents.
 
