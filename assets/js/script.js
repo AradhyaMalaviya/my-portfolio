@@ -162,6 +162,18 @@ function applyTiltEffect(card) {
 }
 
 /**
+ * Project preview image mapping
+ * Maps repo names (lowercase) to their preview image paths
+ */
+const PROJECT_PREVIEWS = {
+  "fitbox":                         "./assets/images/projects/fitbox.png",
+  "heart_diseases-_predictions-":   "./assets/images/projects/heart-diseases-predictions.png",
+  "email-automation-tool":          "./assets/images/projects/email-automation-tool.png",
+  "rackandroll-cafe":               "./assets/images/projects/rackandroll-cafe.png",
+  "thebadgercompany":               "./assets/images/projects/thebadgercompany.png",
+};
+
+/**
  * Build a single project-card <li> element
  */
 function createProjectCard(repo, index) {
@@ -192,14 +204,59 @@ function createProjectCard(repo, index) {
   const color1 = hashColor(repo.name, 1);
   const color2 = hashColor(repo.name, 2);
 
+  // Determine preview image
+  const repoKey = repo.name.toLowerCase();
+  const previewImg = PROJECT_PREVIEWS[repoKey] || null;
+  const hasHomepage = homepage && homepage.trim();
+
+  // Build the banner content
+  let bannerContent;
+  if (previewImg) {
+    // Show real project preview image
+    const bannerInner = `
+       <div class="gh-card-banner-overlay gh-card-banner-overlay--subtle"></div>
+       <img class="gh-card-preview-img" src="${previewImg}" alt="Preview of ${formatRepoName(repo.name)}" loading="lazy" />
+       <div class="gh-card-preview-hover">
+         <ion-icon name="${hasHomepage ? 'open-outline' : 'eye-outline'}"></ion-icon>
+         <span>${hasHomepage ? 'View Live' : 'View Project'}</span>
+       </div>
+    `;
+
+    if (hasHomepage) {
+      bannerContent = `<a href="${homepage}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="Open ${formatRepoName(repo.name)} live demo">
+        ${bannerInner}
+      </a>`;
+    } else {
+      bannerContent = `<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="View ${formatRepoName(repo.name)} source code">
+        ${bannerInner}
+      </a>`;
+    }
+  } else {
+    // Fallback: use a generated SVG-style icon for repos without preview images
+    if (hasHomepage) {
+      bannerContent = `<a href="${homepage}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--fallback" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="Open ${formatRepoName(repo.name)} live demo">
+        <div class="gh-card-banner-overlay"></div>
+        <div class="gh-card-icon-large">
+          <ion-icon name="code-slash-outline"></ion-icon>
+        </div>
+        <div class="gh-card-preview-hover">
+          <ion-icon name="open-outline"></ion-icon>
+          <span>View Live</span>
+        </div>
+      </a>`;
+    } else {
+      bannerContent = `<div class="gh-card-banner gh-card-banner--fallback" style="background: linear-gradient(135deg, ${color1}, ${color2});">
+        <div class="gh-card-banner-overlay"></div>
+        <div class="gh-card-icon-large">
+          <ion-icon name="code-slash-outline"></ion-icon>
+        </div>
+      </div>`;
+    }
+  }
+
   li.innerHTML = `
     <div class="gh-card-glare"></div>
-    <div class="gh-card-banner" style="background: linear-gradient(135deg, ${color1}, ${color2});">
-       <div class="gh-card-banner-overlay"></div>
-       <div class="gh-card-icon-large">
-         <ion-icon name="folder-open-outline"></ion-icon>
-       </div>
-    </div>
+    ${bannerContent}
     <div class="gh-card-content">
       <div class="gh-card-header">
         <div class="gh-card-title-row">

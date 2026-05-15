@@ -2,17 +2,18 @@
 
 ## 1. Project Overview
 **Project Name:** Aaradhya Malaviya Professional Portfolio  
-**Version:** 3.0 (Master Technical Specification)  
+**Version:** 4.0 (Live Preview Cards Release)  
 **Author:** Aaradhya Malaviya  
 **Status:** Production Ready  
 **Deployment Path:** GitHub → Vercel (CI/CD)
 
 ### 1.1 Executive Summary
-A high-performance, responsive Single-Page Application (SPA) designed to act as a comprehensive professional identity hub. The platform bridges the gap between a traditional resume and a live project showcase by integrating real-time data from GitHub and interactive certification verification.
+A high-performance, responsive Single-Page Application (SPA) designed to act as a comprehensive professional identity hub. The platform bridges the gap between a traditional resume and a live project showcase by integrating real-time data from GitHub, interactive certification verification, and live project preview images that visually represent each deployed application.
 
 ### 1.2 Core Objectives
-*   **Trust & Verification:** Use live APIs and modal previews to prove skills rather than just listing them.
-*   **User Engagement:** Employ high-end UI/UX patterns (Tilt, Typing, Scroll Reveal) to increase "Time on Page" for recruiters.
+*   **Trust & Verification:** Use live APIs, project preview images, and modal previews to prove skills rather than just listing them.
+*   **Visual Showcase:** Display real project preview screenshots on each card, making the portfolio feel professional and portfolio-ready.
+*   **User Engagement:** Employ high-end UI/UX patterns (3D Tilt, Typing, Scroll Reveal, Preview Hover Overlays) to increase "Time on Page" for recruiters.
 *   **Accessibility & Inclusion:** Ensure a seamless experience across all device types and lighting conditions (Light/Dark mode).
 *   **Career Management:** Integrate back-office tracking for job applications directly into the repository.
 
@@ -24,14 +25,16 @@ A high-performance, responsive Single-Page Application (SPA) designed to act as 
 1.  **Landing:** User arrives at the root URL.
 2.  **Introduction:** Sidebar typing animation immediately establishes the candidate's core roles.
 3.  **Context:** User reads the "About Me" summary for a high-level fit assessment.
-4.  **Verification:** User navigates to "Projects" or "Certifications" to see tangible proof of expertise.
-5.  **Conversion:** User clicks "Download Resume" or submits the "Contact Form".
+4.  **Verification:** User navigates to "Projects" to see live preview images of actual applications, or "Certifications" to see tangible proof of expertise.
+5.  **Exploration:** User hovers over a project card to reveal the "View Live" overlay and clicks to open the deployed project.
+6.  **Conversion:** User clicks "Download Resume" or submits the "Contact Form".
 
 ### 2.2 The "Hiring Manager Deep-Dive" Flow
-1.  **Technical Audit:** User navigates to "Projects" and filters by "Python" or "React".
-2.  **Code Inspection:** User hovers over 3D cards to see metadata, then clicks "Source" to view the repository on GitHub.
-3.  **Credential Check:** User navigates to "Certifications" and opens modal previews for specific AWS or Anthropic certificates.
-4.  **History Check:** User reviews the "Resume" timeline for career progression and education.
+1.  **Technical Audit:** User navigates to "Projects" and filters by "Python" or "TypeScript".
+2.  **Visual Assessment:** User sees real preview images of each project, immediately understanding what each application looks like.
+3.  **Live Inspection:** User clicks a project preview to visit the live Vercel deployment, or clicks "Source" to view the repository on GitHub.
+4.  **Credential Check:** User navigates to "Certifications" and opens modal previews for specific AWS or Anthropic certificates.
+5.  **History Check:** User reviews the "Resume" timeline for career progression and education.
 
 ---
 
@@ -46,21 +49,48 @@ A high-performance, responsive Single-Page Application (SPA) designed to act as 
 *   **Endpoint:** `https://api.github.com/users/AradhyaMalaviya/repos?sort=pushed`
 *   **Data Processing:** 
     *   **Sorting:** Most recently updated repos appear first.
-    *   **Formatting:** Repo names are cleaned (dashes removed) and Title-Cased.
+    *   **Formatting:** Repo names are cleaned (dashes/underscores removed) and Title-Cased.
     *   **Relative Time:** Custom `timeAgo()` function converts timestamps to human-readable strings (e.g., "Updated 2 days ago").
 *   **UI Features:** 
+    *   **Preview Images:** Each card displays a real project screenshot via the `PROJECT_PREVIEWS` mapping. The banner area is a clickable `<a>` tag linking to the live deployment (if `repo.homepage` exists) or to the GitHub source.
+    *   **Hover Overlay:** A glassmorphism chip (`backdrop-filter: blur(14px)`) with "View Live" / "View Project" text and icon appears on hover over the preview banner.
+    *   **Image Effects:** Preview images use `object-fit: cover` with `brightness(0.85)` that zooms to `scale(1.08)` and brightens to `brightness(1)` on hover.
+    *   **Fallback Banner:** Repos without a preview image fall back to a gradient background with a `code-slash-outline` icon (replacing the old `folder-open-outline` icon).
     *   **3D Tilt:** Raw JS calculation: `perspective(1000px) rotateX(calc(y - centerY)) rotateY(calc(x - centerX))`.
     *   **Language Color Mapping:** Custom dictionary mapping languages (e.g., Python: `#3572A5`) to UI dots and shadows.
     *   **Error Handling:** Stylized offline state with a `gh-retry-btn`.
 
-### 3.3 Certification Verification System
+### 3.3 Project Preview Image System
+*   **Architecture:** Static image files in `assets/images/projects/` mapped to repo names via a `PROJECT_PREVIEWS` JavaScript dictionary.
+*   **Current Mappings:**
+    | Repo Name (Key) | Image File | Link Target |
+    |---|---|---|
+    | `fitbox` | `fitbox.png` | `art-decoder-tool.vercel.app` |
+    | `heart_diseases-_predictions-` | `heart-diseases-predictions.png` | `heartdisease-taupe.vercel.app` |
+    | `email-automation-tool` | `email-automation-tool.png` | GitHub source (no deployment) |
+    | `rackandroll-cafe` | `rackandroll-cafe.png` | GitHub source (no deployment) |
+    | `thebadgercompany` | `thebadgercompany.png` | GitHub source (no deployment) |
+*   **Banner Variants:**
+    *   `.gh-card-banner--preview`: Contains a full-bleed `<img>` with subtle overlay and hover effects.
+    *   `.gh-card-banner--fallback`: Contains the gradient background with `code-slash-outline` icon for unmapped repos.
+*   **CSS Specifications:**
+    *   Banner height: `180px` (increased from `120px`).
+    *   Preview image: `object-fit: cover`, `object-position: top center`, `filter: brightness(0.85)`.
+    *   Hover state: `transform: scale(1.08)`, `filter: brightness(1)`.
+    *   Overlay chip: `border-radius: 12px`, `backdrop-filter: blur(14px)`, `background: hsla(0,0%,0%,0.55)`.
+*   **Adding New Previews:**
+    1. Place PNG (16:9 ratio recommended) in `assets/images/projects/<repo-name>.png`.
+    2. Add entry to `PROJECT_PREVIEWS` in `script.js`: `"repo-name": "./assets/images/projects/repo-name.png"`.
+    3. If the repo has a `homepage` on GitHub, the banner automatically links to it.
+
+### 3.4 Certification Verification System
 *   **Architecture:** Static HTML grid with dynamic modal injection.
 *   **Modal Logic:** 
     *   `data-certificate-src` stores the path to PDF or JPG.
     *   `initCertificateModal` injects the source into a dedicated `<iframe>` for real-time viewing.
     *   Supports `Esc` key to close and scroll-lock on background body.
 
-### 3.4 Theming & Design Tokens
+### 3.5 Theming & Design Tokens
 | Category | Token | Value (Dark / Light) |
 |---|---|---|
 | Background | `--smoky-black` | `#070707` / `#f0f0f0` (via overrides) |
@@ -76,13 +106,22 @@ A high-performance, responsive Single-Page Application (SPA) designed to act as 
 ### 4.1 Glassmorphism Standard
 *   **Standard:** All primary containers (sidebar, articles, cards) must use `backdrop-filter: blur(10px)` and a semi-transparent border (`1px solid var(--jet)`).
 *   **Glow Effects:** Cards use `box-shadow: var(--shadow-1)` which intensifies on hover during the 3D tilt.
+*   **Preview Hover Chip:** Uses `backdrop-filter: blur(14px)` with `background: hsla(0,0%,0%,0.55)` and a `1px solid hsla(0,0%,100%,0.15)` border.
 
-### 4.2 Scroll Reveal Engine
+### 4.2 Project Card Motion Specs
+*   **Preview Image Hover:**
+    *   Image scales from `1.0` to `1.08` over `0.6s` with `cubic-bezier(0.16, 1, 0.3, 1)`.
+    *   Brightness transitions from `0.85` to `1.0` over `0.6s ease`.
+    *   Overlay chip fades in from `opacity: 0` to `opacity: 1` with `scale(0.85)` to `scale(1.0)` over `0.35s`.
+*   **3D Tilt:** Max rotation ±10° on both axes. `scale3d(1.02, 1.02, 1.02)` on hover.
+*   **Glare Effect:** 200% oversized radial gradient, moved relative to mouse position, `mix-blend-mode: overlay`.
+
+### 4.3 Scroll Reveal Engine
 *   **Trigger:** Intersection Observer with `threshold: 0.08`.
 *   **Animation:** Elements start at `opacity: 0` and `translateY(20px)`.
 *   **Staggering:** Sibling elements are automatically tagged with `reveal-delay-X` classes for a sequential "wave" effect.
 
-### 4.3 Typing Animation Profile
+### 4.4 Typing Animation Profile
 *   **Sequence:** [Software Developer, Full Stack Developer, Java Developer, Web Developer, Problem Solver]
 *   **Speeds:** Type: 80ms | Delete: 45ms | Pause at end: 2000ms.
 
@@ -98,7 +137,11 @@ A high-performance, responsive Single-Page Application (SPA) designed to act as 
     *   **Screening Answers:** Standardized responses for remote work, availability, and specific tech stack experience.
 
 ### 5.2 Content Update Guide
-*   **Projects:** Update directly on GitHub (README/Tags). The site will sync on the next refresh.
+*   **Projects:** Update directly on GitHub (README/Tags). The site will sync on the next page load.
+*   **Project Preview Images:**
+    1.  Place a PNG screenshot (16:9 ratio, ~500KB) in `assets/images/projects/<repo-name>.png`.
+    2.  Add the mapping entry to `PROJECT_PREVIEWS` in `assets/js/script.js`.
+    3.  Set the GitHub repo's `homepage` field to the live URL (if deployed) to enable the "View Live" link.
 *   **Resume:** Replace `resume file/Aaradhya_Malaviya_Resume.pdf`.
 *   **Certifications:** 
     1. Upload PDF/JPG to `assets/certificates/`.
@@ -112,8 +155,10 @@ A high-performance, responsive Single-Page Application (SPA) designed to act as 
 ### 6.1 SEO & Performance
 *   **Meta Tags:** Full OpenGraph support for LinkedIn/Twitter sharing.
 *   **Semantic HTML:** Usage of `<article>`, `<aside>`, `<nav>`, and `<time>` tags for screen readers and search crawlers.
-*   **Load Time:** Target < 1.5s for initial render (LCP).
+*   **Load Time:** Target < 1.5s for initial render (LCP). Project preview images use `loading="lazy"` for deferred loading.
+*   **Image Optimization:** Preview images are ~500KB PNGs. Consider converting to WebP for further optimization.
 
 ### 6.2 Security
 *   **Contact Form:** Protection via FormSubmit's built-in honeypot and email verification.
 *   **Dependencies:** Zero heavy frameworks (Zero React/Vue/jQuery) to minimize vulnerability surface.
+*   **External Links:** All external links use `rel="noopener noreferrer"` and `target="_blank"`.
