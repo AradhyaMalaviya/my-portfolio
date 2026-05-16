@@ -15,17 +15,17 @@ Welcome to my **Personal Portfolio Website**, a premium, highly interactive Sing
 ## 🌟 Overview
 
 **Website Sections:**
-- **About Me** – Introduction, career aspirations, and professional background
-- **Resume** – Education, experience timeline, technical skills, and achievements
-- **Projects** – Dynamic GitHub-powered project showcase with **live preview images**, 3D tilt effects, and language filtering
-- **Certifications** – Interactive certificate gallery with modal previews (PDF/Image support)
-- **Contact** – Contact form (FormSubmit AJAX integration with real-time feedback)
+- **About Me** – Introduction, career aspirations, and professional background.
+- **Resume** – Education, experience timeline, technical skills, and achievements.
+- **Projects** – Dynamic GitHub-powered project showcase with **live preview images**, 3D tilt effects, and language filtering.
+- **Certifications** – Interactive certificate gallery with modal previews (PDF/Image support).
+- **Contact** – Contact form (FormSubmit AJAX integration with real-time feedback).
 
 ---
 
 ## 🚀 Projects — Live Preview Cards
 
-Each project card displays a **real screenshot** of the deployed application, replacing generic folder icons with rich visual previews. Clicking any preview opens the live Vercel deployment or the GitHub source.
+Each project card displays a **real screenshot** of the deployed application, replacing generic folder icons with rich visual previews. Clicking any preview opens the live deployment or the GitHub source.
 
 ![Projects Section — Live preview cards with real application screenshots](./assets/images/readme/portfolio-projects.png)
 
@@ -55,8 +55,8 @@ Every card includes the project preview image, technology tags, star/fork counts
 
 Actively seeking **Software Developer**, **Full-Stack Developer**, and **AI/ML Engineer** roles. Experienced in:
 - Full-stack web development (React, Node.js, Express, FastAPI)
-- AI/ML systems (PyTorch, Scikit-learn, OpenCV, EasyOCR)
-- Generative AI (LLMs, Prompt Engineering, AI Agents)
+- AI/ML systems (PyTorch, Scikit-learn, OpenCV, EasyOCR, DQN)
+- Generative AI (LLMs, Prompt Engineering, AI Agents, Anthropic, AWS)
 - Database management (SQL, NoSQL)
 - Cloud & DevOps (AWS, Docker, Git, GitHub)
 - Deployment (Vercel, Netlify, GitHub Pages)
@@ -69,10 +69,9 @@ Actively seeking **Software Developer**, **Full-Stack Developer**, and **AI/ML E
 | Category | Technologies |
 |----------|-------------|
 | **Structure** | HTML5 (Semantic SPA layout) |
-| **Styling** | Vanilla CSS3 (Custom variables, gradients, glassmorphism, responsive design) |
-| **Logic** | Vanilla JavaScript ES6 (GitHub API, 3D tilt, typing animation, scroll reveal) |
+| **Styling** | Vanilla CSS3 (Custom variables, glassmorphism, responsive design) |
+| **Logic** | Vanilla JavaScript ES6 (GitHub API, 3D tilt, typing, scroll reveal) |
 | **Icons** | Ionicons (CDN) |
-| **Typography** | Google Fonts — Poppins (300, 400, 500, 600) |
 | **Contact** | FormSubmit (AJAX with loading/success/error states) |
 | **Deployment** | Vercel (CI/CD from GitHub) |
 
@@ -83,7 +82,7 @@ Actively seeking **Software Developer**, **Full-Stack Developer**, and **AI/ML E
 | **Frameworks** | React.js, Node.js, Express.js, FastAPI |
 | **AI/ML** | pandas, NumPy, scikit-learn, PyTorch, OpenCV, EasyOCR |
 | **Cloud & Tools** | AWS, Docker, Git, GitHub, VS Code |
-| **Domains** | Machine Learning, Deep Learning, Generative AI, LLMs, Computer Vision, NLP |
+| **Domains** | Machine Learning, Deep Learning, Generative AI, LLMs, NLP |
 
 ---
 
@@ -95,19 +94,18 @@ Actively seeking **Software Developer**, **Full-Stack Developer**, and **AI/ML E
 
 ## 📈 Key Features
 
-- **Live Project Previews** — Each project card displays a real preview image/screenshot of the application instead of generic icons
-- **Clickable Preview Banners** — Clicking a project preview navigates directly to the live Vercel deployment or GitHub source
-- **Interactive Hover Effects** — Glassmorphism "View Live" overlay chip appears on hover with smooth zoom transitions
-- **3D Tilt Effect** — Perspective-based tilt on project cards with glare overlay
-- **Dynamic GitHub Integration** — Real-time project fetching from GitHub API with language filtering, skeleton loading, and retry logic
-- **Typing Animation** — Animated role rotation in the sidebar (Software Developer, Full Stack Developer, etc.)
-- **Light/Dark Mode** — Theme toggle with local storage persistence
-- **Contact Form** — FormSubmit AJAX integration with loading, success, and error states
-- **Interactive Certifications** — Modal previews with PDF/image viewer and keyboard (Esc) support
-- **Scroll Reveal Animations** — IntersectionObserver-powered fade-in animations with staggered delays
-- **Animated Floating Orbs** — Subtle background particle effects for a premium aesthetic
-- **Fully Responsive** — Optimized for desktop, tablet, and mobile viewports
-- **Custom 404 Page** — Stylized error page matching the portfolio's aesthetic
+- **Live Project Previews** — Each project card displays a real preview image/screenshot of the application.
+- **Clickable Preview Banners** — Banners navigate directly to live deployments or GitHub source.
+- **Interactive Hover Effects** — Glassmorphism "View Live" overlay chip and smooth zoom transitions.
+- **3D Tilt Effect** — Perspective-based tilt on project cards with glare overlay.
+- **Dynamic GitHub Integration** — Real-time project fetching with language filtering and skeleton loading.
+- **Premium UI Animations** — Floating background orbs, animated avatar gradient ring, and skill bar progress.
+- **Typing Animation** — Animated role rotation in the sidebar.
+- **Light/Dark Mode** — Theme toggle with local storage persistence.
+- **Contact Form** — FormSubmit AJAX integration with real-time feedback.
+- **Interactive Certifications** — Modal previews with PDF/image viewer and keyboard support.
+- **Scroll Reveal** — IntersectionObserver-powered fade-in animations.
+- **Fully Responsive** — Optimized for all desktop, tablet, and mobile viewports.
 
 ---
 
@@ -124,10 +122,9 @@ All certificates are viewable in the **Certifications** section with interactive
 - Introduction to Generative AI: Art of the Possible
 
 **Anthropic Education (2026):**
-- Claude 101, Claude Code 101
-- Introduction to Claude Cowork
 - Introduction to Subagents
 - Introduction to Agent Skills
+- *Also completed: Claude 101, Claude Code 101, Intro to Claude Cowork*
 
 **Data Science:**
 - Python for Data Science (Infosys / OnWingspan)
@@ -137,7 +134,7 @@ All certificates are viewable in the **Certifications** section with interactive
 
 ## 📱 Mobile View
 
-Fully responsive design across all viewports — the portfolio adapts seamlessly to mobile screens while maintaining its premium aesthetic.
+Fully responsive design across all viewports.
 
 <p align="center">
   <img src="./assets/images/readme/mobile-about.png" width="220" alt="Mobile — About Me" />
@@ -161,7 +158,7 @@ Portfolio/
 ├── index.html                          # Main SPA entry point
 ├── 404.html                            # Custom error page
 ├── GEMINI.md                           # AI assistant context file
-├── PRD.md                              # Product Requirements Document
+├── PRD.md                              # Master Tech Spec (v4.0)
 ├── README.md                           # This file
 ├── indeed-application-queue.md         # Job application tracker
 ├── assets/
@@ -172,24 +169,8 @@ Portfolio/
 │   ├── images/
 │   │   ├── my-avatar.png               # Profile avatar
 │   │   ├── certificates/               # SVG previews for certificates
-│   │   ├── readme/                     # README screenshots (real captures)
-│   │   │   ├── portfolio-hero.png
-│   │   │   ├── portfolio-projects.png
-│   │   │   ├── portfolio-projects-2.png
-│   │   │   ├── portfolio-resume.png
-│   │   │   ├── portfolio-certifications.png
-│   │   │   ├── portfolio-contact.png
-│   │   │   ├── project-fitbox-live.png
-│   │   │   ├── mobile-about.png
-│   │   │   ├── mobile-projects.png
-│   │   │   ├── mobile-resume.png
-│   │   │   └── mobile-certifications.png
-│   │   └── projects/                   # Project preview images (card banners)
-│   │       ├── email-automation-tool.png
-│   │       ├── fitbox.png
-│   │       ├── heart-diseases-predictions.png
-│   │       ├── rackandroll-cafe.png
-│   │       └── thebadgercompany.png
+│   │   ├── readme/                     # README screenshots
+│   │   └── projects/                   # Project preview images
 │   └── certificates/                   # Source PDF/JPG certificates
 └── resume file/                        # Downloadable resume documents
 ```
@@ -198,22 +179,20 @@ Portfolio/
 
 ## 🔄 Recent Updates
 
-- **Project Preview Cards:** Replaced all generic folder icons with **real project preview images** captured from live deployments. Each card now showcases the actual application with clickable banners linking to Vercel deployments or GitHub source. Hover effects include a glassmorphism "View Live" overlay and smooth image zoom.
-- **README Screenshots:** Replaced all placeholder `github.com/user-attachments` images with **real screenshots** captured directly from the live production site — every section (Hero, Projects, Resume, Certifications, Contact, Mobile) now shows the actual current state.
-- **UX/Recruiter Enhancements:** Light/Dark mode toggle, scroll fade-in animations, "Download Resume" button, and improved Contact Form feedback.
-- **Custom Pages:** Stylized 404 error page matching the portfolio aesthetic.
-- **Certifications:** Added AWS ML/AI, Generative AI, Prompt Engineering, and Anthropic certificates.
-- **Projects Section:** Interactive 3D tilt effects, language filtering, and premium card design.
-- **UI/UX:** Floating background orbs, animated skill bars, sidebar hover glow, and avatar gradient ring.
+- **Premium UI Refactor:** Added animated background floating orbs, a conic-gradient rotating ring for the profile avatar, and scroll-triggered skill progress bar animations.
+- **Project Preview Cards:** Replaced generic icons with **real screenshots** from live deployments. Clickable banners link to Vercel deployments or GitHub source.
+- **GitHub API Branding:** Implemented `hashColor` logic to generate unique, consistent branding gradients for all dynamic repository cards.
+- **README Overhaul:** Replaced all placeholder images with real production screenshots captured directly from the live site.
+- **Experience Timeline:** Added the latest Jan 2026 — Present "GenAI-Powered Cognitive Radio" project and Oct 2025 "License Plate Recognition" system to the resume timeline.
+- **Certifications:** Integrated 2026 AWS and Anthropic certifications with interactive modal previews.
 
 ---
 
 ## 📝 Future Goals
 
-- Contribute to **open-source projects**
-- Build advanced **Full-Stack and AI-powered applications**
-- Strengthen knowledge of **cloud platforms, distributed systems, and AI agents**
-- Participate in more **hackathons** and collaborative projects
+- Contribute to **open-source projects**.
+- Build advanced **AI-powered agents and distributed systems**.
+- Participate in more **hackathons** and collaborative projects.
 
 ---
 
