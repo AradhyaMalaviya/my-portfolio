@@ -453,15 +453,10 @@ if (form && submitBtn) {
     submitBtn.disabled = true;
 
     try {
-      // Ensure we target the AJAX endpoint of FormSubmit
-      const ajaxAction = form.action.includes("/ajax/")
-        ? form.action
-        : form.action.replace("https://formsubmit.co/", "https://formsubmit.co/ajax/");
-
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
 
-      const response = await fetch(ajaxAction, {
+      const response = await fetch(form.action, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
