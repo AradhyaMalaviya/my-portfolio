@@ -1498,13 +1498,119 @@ textarea.form-input::-webkit-resizer {
     #GITHUB PROJECTS
   \*-----------------------------------*/
 
-/* ── Language filter bar ── */
+/* ── Project Controls: Search, Filter, Stats ── */
+
+.gh-controls-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.gh-search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.gh-search-wrapper ion-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--light-gray-70);
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.gh-search-input {
+  width: 100%;
+  padding: 13px 20px 13px 50px;
+  background: var(--eerie-black-1);
+  border: 1px solid var(--jet);
+  border-radius: 14px;
+  color: var(--white-2);
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.gh-search-input:focus {
+  border-color: var(--orange-yellow-crayola);
+  box-shadow: 0 0 15px hsla(45, 100%, 72%, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: hsla(240, 2%, 13%, 0.9);
+}
+
+.gh-search-wrapper:focus-within ion-icon {
+  color: var(--orange-yellow-crayola);
+}
+
+.gh-search-input::placeholder {
+  color: hsla(0, 0%, 84%, 0.45);
+}
+
+/* Stats Summary Bar */
+.gh-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 20px;
+  background: hsla(0, 0%, 100%, 0.02);
+  border: 1px solid hsla(0, 0%, 100%, 0.06);
+  border-radius: 12px;
+  font-size: 13px;
+  color: var(--light-gray-70);
+  backdrop-filter: blur(8px);
+}
+
+.gh-stats-counts {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.gh-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.gh-stat-pill ion-icon {
+  font-size: 14px;
+  color: var(--orange-yellow-crayola);
+}
+
+.gh-stat-pill.public-pill ion-icon {
+  color: #56b6c2;
+}
+
+.gh-stat-pill.private-pill ion-icon {
+  color: #f6c177;
+}
+
+.gh-sync-icon.spinning {
+  animation: spinSync 1.2s linear infinite;
+  color: var(--orange-yellow-crayola);
+}
+
+@keyframes spinSync {
+  100% { transform: rotate(360deg); }
+}
+
+/* ── Filter bar ── */
 
 .gh-filter-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 0;
   padding: 0 2px;
 }
 
@@ -1519,6 +1625,7 @@ textarea.form-input::-webkit-resizer {
   transition: all 0.3s ease;
   white-space: nowrap;
   letter-spacing: 0.2px;
+  cursor: pointer;
 }
 
 .gh-filter-btn:hover {
@@ -1533,6 +1640,36 @@ textarea.form-input::-webkit-resizer {
   border-color: transparent;
   font-weight: var(--fw-500);
   box-shadow: 0 2px 12px hsla(45, 100%, 72%, 0.2);
+}
+
+/* ── Empty search state ── */
+.gh-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: hsla(0, 0%, 100%, 0.02);
+  border: 1px solid hsla(0, 0%, 100%, 0.06);
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+.gh-empty-icon {
+  font-size: 48px;
+  color: var(--light-gray-70);
+  margin-bottom: 16px;
+}
+
+.gh-empty-title {
+  color: var(--white-2);
+  font-size: var(--fs-4);
+  font-weight: var(--fw-500);
+  margin-bottom: 8px;
+}
+
+.gh-empty-subtitle {
+  color: var(--light-gray-70);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  margin-bottom: 20px;
 }
 
 /* ── Skeleton loading ── */
@@ -1770,6 +1907,49 @@ textarea.form-input::-webkit-resizer {
   color: var(--orange-yellow-crayola);
 }
 
+.gh-card-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.gh-card-visibility-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-weight: var(--fw-500);
+  padding: 3px 9px;
+  border-radius: 50px;
+  width: fit-content;
+}
+
+.gh-card-visibility-badge ion-icon {
+  font-size: 11px;
+}
+
+.gh-card-visibility-badge.public {
+  color: #56b6c2;
+  background: hsla(187, 47%, 55%, 0.12);
+  border: 1px solid hsla(187, 47%, 55%, 0.28);
+}
+
+.gh-card-visibility-badge.private {
+  color: #f6c177;
+  background: hsla(38, 90%, 55%, 0.12);
+  border: 1px solid hsla(38, 90%, 55%, 0.28);
+}
+
+.gh-card-visibility-badge.featured {
+  color: var(--orange-yellow-crayola);
+  background: hsla(45, 100%, 72%, 0.14);
+  border: 1px solid hsla(45, 100%, 72%, 0.32);
+}
+
 .gh-card-fork-badge {
   display: inline-flex;
   align-items: center;
@@ -1782,7 +1962,6 @@ textarea.form-input::-webkit-resizer {
   border: 1px solid hsla(45, 54%, 58%, 0.12);
   padding: 3px 10px;
   border-radius: 50px;
-  margin-top: 10px;
   width: fit-content;
 }
 
@@ -1796,6 +1975,25 @@ textarea.form-input::-webkit-resizer {
   display: flex;
   flex-direction: column;
   padding: 20px 24px 0;
+}
+
+/* Tech tag pills */
+.gh-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.gh-tech-pill {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: hsla(0, 0%, 100%, 0.04);
+  border: 1px solid hsla(0, 0%, 100%, 0.08);
+  color: var(--light-gray);
+  font-weight: var(--fw-300);
+  white-space: nowrap;
 }
 
 .gh-card-desc {
@@ -1908,6 +2106,18 @@ textarea.form-input::-webkit-resizer {
   background: hsla(0, 0%, 100%, 0.07);
   border-color: hsla(0, 0%, 100%, 0.16);
   transform: translateY(-1px);
+}
+
+.gh-btn--private {
+  color: #f6c177;
+  border-color: hsla(38, 90%, 55%, 0.25);
+  background: hsla(38, 90%, 55%, 0.06);
+}
+
+.gh-btn--private:hover {
+  background: hsla(38, 90%, 55%, 0.15);
+  border-color: hsla(38, 90%, 55%, 0.45);
+  color: #ffd599;
 }
 
 /* updated date — inside footer */

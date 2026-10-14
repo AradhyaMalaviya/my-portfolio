@@ -166,93 +166,135 @@ function applyTiltEffect(card) {
  * Maps repo names (lowercase) to their preview image paths
  */
 const PROJECT_PREVIEWS = {
-  "fitbox":                         "./assets/images/projects/fitbox.png",
-  "heart_diseases-_predictions-":   "./assets/images/projects/heart-diseases-predictions.png",
-  "email-automation-tool":          "./assets/images/projects/email-automation-tool.png",
-  "rackandroll-cafe":               "./assets/images/projects/rackandroll-cafe.png",
-  "thebadgercompany":               "./assets/images/projects/thebadgercompany.png",
+  "fitbox":                             "./assets/images/projects/fitbox.png",
+  "fitbox-mobile":                      "./assets/images/projects/fitbox.png",
+  "fitbox-project-":                    "./assets/images/projects/fitbox.png",
+  "heart_diseases-_predictions-":       "./assets/images/projects/heart-diseases-predictions.png",
+  "heart-risk-ai":                      "./assets/images/projects/heart-diseases-predictions.png",
+  "email-automation-tool":              "./assets/images/projects/email-automation-tool.png",
+  "internship-finder-automation-tool":   "./assets/images/projects/email-automation-tool.png",
+  "rackandroll-cafe":                   "./assets/images/projects/rackandroll-cafe.png",
+  "thebadgercompany":                   "./assets/images/projects/thebadgercompany.png",
+  "neural-retail-ai":                   "./assets/images/projects/neural-retail-ai.png",
+  "neuralretail":                       "./assets/images/projects/neural-retail-ai.png",
+  "detoxing":                           "./assets/images/projects/detoxing.jpg",
+  "web-development-internship-project": "./assets/images/projects/web-development-internship.webp",
+  "my-portfolio":                       "./assets/images/readme/portfolio-hero.png",
+  "aradhya-portfolio":                  "./assets/images/readme/portfolio-hero.png",
+  "aradhyas-portfolio":                 "./assets/images/readme/portfolio-hero.png",
 };
+
+// Global projects state
+let masterProjectsList = [];
+let activeFilterKey = "all";
 
 /**
  * Build a single project-card <li> element
  */
-function createProjectCard(repo, index) {
+function createProjectCard(project, index) {
   const li = document.createElement("li");
   li.className = "gh-card premium-card";
-  li.dataset.language = (repo.language || "Other").toLowerCase();
-  li.style.animationDelay = `${index * 0.06}s`;
+  li.dataset.language = (project.language || "Other").toLowerCase();
+  li.dataset.category = (project.category || "Other").toLowerCase();
+  li.dataset.visibility = project.isPrivate ? "private" : "public";
+  li.dataset.featured = project.isFeatured ? "true" : "false";
+  li.dataset.name = (project.name || "").toLowerCase();
+  li.style.animationDelay = `${Math.min(index * 0.04, 0.6)}s`;
 
-  const langColor = LANG_COLORS[repo.language] || "#8b949e";
-  const hasDesc = repo.description && repo.description.trim();
-  const description = hasDesc ? repo.description : "No description provided.";
+  const langColor = LANG_COLORS[project.language] || "#8b949e";
+  const hasDesc = project.description && project.description.trim();
+  const description = hasDesc ? project.description : "No description provided.";
   const descClass = hasDesc ? "gh-card-desc" : "gh-card-desc empty";
-  const homepage = repo.homepage;
+  const liveUrl = project.liveUrl || project.homepage || "";
+  const repoUrl = project.repoUrl || project.html_url || `https://github.com/${GH_USERNAME}/${project.name}`;
 
-  let forkBadge = "";
-  if (repo.fork) {
-    forkBadge = `<span class="gh-card-fork-badge"><ion-icon name="git-branch-outline"></ion-icon> Forked</span>`;
-  }
+  // Badges
+  const visibilityBadge = project.isPrivate
+    ? `<span class="gh-card-visibility-badge private"><ion-icon name="lock-closed"></ion-icon> Private</span>`
+    : `<span class="gh-card-visibility-badge public"><ion-icon name="globe-outline"></ion-icon> Public</span>`;
 
+  const featuredBadge = project.isFeatured
+    ? `<span class="gh-card-visibility-badge featured"><ion-icon name="sparkles"></ion-icon> Featured</span>`
+    : "";
+
+  const forkBadge = project.isFork || project.fork
+    ? `<span class="gh-card-fork-badge"><ion-icon name="git-branch-outline"></ion-icon> Forked</span>`
+    : "";
+
+  // Action Buttons
   let demoBtn = "";
-  if (homepage && homepage.trim()) {
-    demoBtn = `<a href="${homepage}" target="_blank" rel="noopener noreferrer" class="gh-btn gh-btn-primary">
+  if (liveUrl && liveUrl.trim()) {
+    demoBtn = `<a href="${liveUrl}" target="_blank" rel="noopener noreferrer" class="gh-btn gh-btn-primary">
       <ion-icon name="open-outline"></ion-icon>
       <span>Live Demo</span>
     </a>`;
   }
 
-  const color1 = hashColor(repo.name, 1);
-  const color2 = hashColor(repo.name, 2);
+  const sourceBtn = project.isPrivate
+    ? `<a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="gh-btn gh-btn-secondary gh-btn--private" title="Private GitHub Repository (Protected Access)">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <span>Private Repo</span>
+      </a>`
+    : `<a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="gh-btn gh-btn-secondary" title="View Source Code on GitHub">
+        <ion-icon name="logo-github"></ion-icon>
+        <span>Source</span>
+      </a>`;
+
+  // Colors
+  const color1 = hashColor(project.name, 1);
+  const color2 = hashColor(project.name, 2);
 
   // Determine preview image
-  const repoKey = repo.name.toLowerCase();
-  const previewImg = PROJECT_PREVIEWS[repoKey] || null;
-  const hasHomepage = homepage && homepage.trim();
+  const repoKey = project.name.toLowerCase();
+  const previewImg = project.previewImage || PROJECT_PREVIEWS[repoKey] || null;
+  const hasLive = liveUrl && liveUrl.trim();
+  const displayName = project.displayName || formatRepoName(project.name);
 
   // Build the banner content
   let bannerContent;
   if (previewImg) {
-    // Show real project preview image
     const bannerInner = `
        <div class="gh-card-banner-overlay gh-card-banner-overlay--subtle"></div>
-       <img class="gh-card-preview-img" src="${previewImg}" alt="Preview of ${formatRepoName(repo.name)}" loading="lazy" />
+       <img class="gh-card-preview-img" src="${previewImg}" alt="Preview of ${displayName}" loading="lazy" />
        <div class="gh-card-preview-hover">
-         <ion-icon name="${hasHomepage ? 'open-outline' : 'eye-outline'}"></ion-icon>
-         <span>${hasHomepage ? 'View Live' : 'View Project'}</span>
+         <ion-icon name="${hasLive ? 'open-outline' : (project.isPrivate ? 'lock-closed-outline' : 'eye-outline')}"></ion-icon>
+         <span>${hasLive ? 'View Live' : (project.isPrivate ? 'Private Repo' : 'View Project')}</span>
        </div>
     `;
 
-    if (hasHomepage) {
-      bannerContent = `<a href="${homepage}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="Open ${formatRepoName(repo.name)} live demo">
+    if (hasLive) {
+      bannerContent = `<a href="${liveUrl}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="Open ${displayName} live demo">
         ${bannerInner}
       </a>`;
     } else {
-      bannerContent = `<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="View ${formatRepoName(repo.name)} source code">
+      bannerContent = `<a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="View ${displayName} repository">
         ${bannerInner}
       </a>`;
     }
   } else {
-    // Fallback: use a generated SVG-style icon for repos without preview images
-    if (hasHomepage) {
-      bannerContent = `<a href="${homepage}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--fallback" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="Open ${formatRepoName(repo.name)} live demo">
-        <div class="gh-card-banner-overlay"></div>
-        <div class="gh-card-icon-large">
-          <ion-icon name="code-slash-outline"></ion-icon>
-        </div>
-        <div class="gh-card-preview-hover">
-          <ion-icon name="open-outline"></ion-icon>
-          <span>View Live</span>
-        </div>
-      </a>`;
-    } else {
-      bannerContent = `<div class="gh-card-banner gh-card-banner--fallback" style="background: linear-gradient(135deg, ${color1}, ${color2});">
-        <div class="gh-card-banner-overlay"></div>
-        <div class="gh-card-icon-large">
-          <ion-icon name="code-slash-outline"></ion-icon>
-        </div>
-      </div>`;
-    }
+    // Fallback gradient banner with code icon
+    const bannerTarget = hasLive ? liveUrl : repoUrl;
+    bannerContent = `<a href="${bannerTarget}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--fallback" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="View ${displayName}">
+      <div class="gh-card-banner-overlay"></div>
+      <div class="gh-card-icon-large">
+        <ion-icon name="${project.category === 'AI/ML' ? 'hardware-chip-outline' : (project.isPrivate ? 'shield-checkmark-outline' : 'code-slash-outline')}"></ion-icon>
+      </div>
+      <div class="gh-card-preview-hover">
+        <ion-icon name="${hasLive ? 'open-outline' : 'eye-outline'}"></ion-icon>
+        <span>${hasLive ? 'View Live' : (project.isPrivate ? 'Private Repo' : 'View Project')}</span>
+      </div>
+    </a>`;
   }
+
+  // Tech tags HTML
+  const techList = (project.languages && project.languages.length ? project.languages : [project.language]).filter(Boolean).slice(0, 4);
+  const techTagsHtml = techList.length
+    ? `<div class="gh-card-tags">${techList.map(t => `<span class="gh-tech-pill">${t}</span>`).join('')}</div>`
+    : "";
+
+  const starsCount = project.stars ?? project.stargazers_count ?? 0;
+  const forksCount = project.forks ?? project.forks_count ?? 0;
+  const updatedDate = project.pushedAt || project.pushed_at || new Date().toISOString();
 
   li.innerHTML = `
     <div class="gh-card-glare"></div>
@@ -260,153 +302,294 @@ function createProjectCard(repo, index) {
     <div class="gh-card-content">
       <div class="gh-card-header">
         <div class="gh-card-title-row">
-          <h3 class="gh-card-name">${formatRepoName(repo.name)}</h3>
+          <h3 class="gh-card-name" title="${displayName}">${displayName}</h3>
         </div>
-        ${forkBadge}
+        <div class="gh-card-badges">
+          ${visibilityBadge}
+          ${featuredBadge}
+          ${forkBadge}
+        </div>
       </div>
 
       <div class="gh-card-body">
         <p class="${descClass}">${description}</p>
+        ${techTagsHtml}
 
         <div class="gh-card-meta">
-          ${repo.language ? `<span class="gh-meta-item">
+          ${project.language ? `<span class="gh-meta-item">
             <span class="gh-lang-dot" style="--lang-color:${langColor}; box-shadow: 0 0 8px ${langColor}"></span>
-            <span>${repo.language}</span>
+            <span>${project.language}</span>
           </span>` : ""}
-          <span class="gh-meta-item">
+          <span class="gh-meta-item" title="Stars">
             <ion-icon name="star"></ion-icon>
-            <span>${repo.stargazers_count}</span>
+            <span>${starsCount}</span>
           </span>
-          <span class="gh-meta-item">
+          <span class="gh-meta-item" title="Forks">
             <ion-icon name="git-branch"></ion-icon>
-            <span>${repo.forks_count}</span>
+            <span>${forksCount}</span>
           </span>
         </div>
       </div>
 
       <div class="gh-card-footer">
         <div class="gh-card-actions">
-          <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="gh-btn gh-btn-secondary">
-            <ion-icon name="logo-github"></ion-icon>
-            <span>Source</span>
-          </a>
+          ${sourceBtn}
           ${demoBtn}
         </div>
         <p class="gh-card-updated">
           <ion-icon name="time-outline"></ion-icon>
-          ${timeAgo(repo.pushed_at)}
+          ${timeAgo(updatedDate)}
         </p>
       </div>
     </div>
   `;
-  
+
   applyTiltEffect(li);
   return li;
 }
 
 /**
- * Build language filter buttons from repo data
+ * Filter & search handler
  */
-function buildFilterBar(repos) {
+function applyFiltersAndSearch() {
+  const searchInput = document.getElementById("gh-search-input");
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+  const filterKey = activeFilterKey.toLowerCase();
+  const gridEl = document.getElementById("gh-project-grid");
+  const emptyStateEl = document.getElementById("gh-empty-state");
+  const visibleCountEl = document.getElementById("gh-visible-count");
+
+  if (!gridEl) return;
+
+  const cards = gridEl.querySelectorAll(".gh-card");
+  let visibleCount = 0;
+
+  cards.forEach((card, i) => {
+    const cardLang = (card.dataset.language || "").toLowerCase();
+    const cardCat = (card.dataset.category || "").toLowerCase();
+    const cardVis = (card.dataset.visibility || "").toLowerCase();
+    const isFeatured = card.dataset.featured === "true";
+    const cardText = (card.textContent || "").toLowerCase();
+
+    // Check filter match
+    let matchesFilter = false;
+    if (filterKey === "all") {
+      matchesFilter = true;
+    } else if (filterKey === "featured") {
+      matchesFilter = isFeatured;
+    } else if (filterKey === "public" || filterKey === "private") {
+      matchesFilter = cardVis === filterKey;
+    } else if (filterKey === "ai / ml" || filterKey === "ai/ml" || filterKey === "ai") {
+      matchesFilter = cardCat.includes("ai") || cardCat.includes("ml") || cardCat.includes("data");
+    } else if (filterKey === "full-stack") {
+      matchesFilter = cardCat === "full-stack";
+    } else if (filterKey === "web") {
+      matchesFilter = cardCat === "web";
+    } else if (filterKey === "automation") {
+      matchesFilter = cardCat === "automation";
+    } else {
+      // Language match or general tag
+      matchesFilter = cardLang === filterKey || cardText.includes(filterKey);
+    }
+
+    // Check search match
+    const matchesSearch = !query || cardText.includes(query);
+
+    if (matchesFilter && matchesSearch) {
+      card.style.display = "";
+      visibleCount++;
+    } else {
+      card.style.display = "none";
+    }
+  });
+
+  if (visibleCountEl) visibleCountEl.textContent = visibleCount;
+  if (emptyStateEl) emptyStateEl.style.display = visibleCount === 0 ? "" : "none";
+}
+
+/**
+ * Build dynamic categorized filter buttons
+ */
+function buildFilterBar(projects) {
   const filterList = document.getElementById("gh-filter-list");
   if (!filterList) return;
 
-  const languages = new Set();
-  repos.forEach(r => { if (r.language) languages.add(r.language); });
+  const publicCount = projects.filter(p => !p.isPrivate).length;
+  const privateCount = projects.filter(p => p.isPrivate).length;
+  const featuredCount = projects.filter(p => p.isFeatured).length;
 
-  // Clear existing (except "All")
-  filterList.innerHTML = `
-    <li class="gh-filter-item">
-      <button class="gh-filter-btn active" data-lang="all">All</button>
-    </li>
-  `;
+  // Preset core categories
+  const categories = [
+    { label: `All (${projects.length})`, key: "all" },
+    { label: `Featured (${featuredCount})`, key: "featured" },
+    { label: `Public (${publicCount})`, key: "public" },
+    { label: `Private (${privateCount})`, key: "private" },
+    { label: "AI / ML", key: "ai / ml" },
+    { label: "Full-Stack", key: "full-stack" },
+    { label: "TypeScript", key: "typescript" },
+    { label: "Python", key: "python" },
+    { label: "JavaScript", key: "javascript" },
+    { label: "Automation", key: "automation" },
+    { label: "Web", key: "web" },
+  ];
 
-  Array.from(languages).sort().forEach(lang => {
+  filterList.innerHTML = "";
+
+  categories.forEach(cat => {
     const li = document.createElement("li");
     li.className = "gh-filter-item";
-    li.innerHTML = `<button class="gh-filter-btn" data-lang="${lang.toLowerCase()}">${lang}</button>`;
+    const isActive = cat.key === activeFilterKey ? "active" : "";
+    li.innerHTML = `<button class="gh-filter-btn ${isActive}" data-filter="${cat.key}">${cat.label}</button>`;
     filterList.appendChild(li);
   });
 
-  // Attach filter events
+  // Attach click listener to buttons
   const buttons = filterList.querySelectorAll(".gh-filter-btn");
-  let activeBtn = buttons[0];
-
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-      activeBtn.classList.remove("active");
+      buttons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      activeBtn = btn;
-
-      const lang = btn.dataset.lang;
-      const cards = document.querySelectorAll("#gh-project-grid .gh-card");
-
-      cards.forEach((card, i) => {
-        if (lang === "all" || card.dataset.language === lang) {
-          card.style.display = "";
-          card.style.animation = "none";
-          // Force reflow to restart animation
-          card.offsetHeight;
-          card.style.animation = `cardFadeIn 0.4s ease both`;
-          card.style.animationDelay = `${i * 0.04}s`;
-        } else {
-          card.style.display = "none";
-        }
-      });
+      activeFilterKey = btn.dataset.filter;
+      applyFiltersAndSearch();
     });
   });
 }
 
 /**
- * Main fetch & render
+ * Render all projects into grid
  */
-async function loadGitHubProjects() {
+function renderProjects(projects) {
+  const gridEl = document.getElementById("gh-project-grid");
   const loadingEl = document.getElementById("gh-loading");
-  const errorEl   = document.getElementById("gh-error");
-  const gridEl    = document.getElementById("gh-project-grid");
+  const errorEl = document.getElementById("gh-error");
 
-  if (!loadingEl || !errorEl || !gridEl) return;
+  if (!gridEl) return;
 
-  loadingEl.style.display = "";
-  errorEl.style.display   = "none";
-  gridEl.style.display    = "none";
-  gridEl.innerHTML        = "";
+  if (loadingEl) loadingEl.style.display = "none";
+  if (errorEl) errorEl.style.display = "none";
+  gridEl.innerHTML = "";
+
+  projects.forEach((p, idx) => {
+    gridEl.appendChild(createProjectCard(p, idx));
+  });
+
+  gridEl.style.display = "";
+
+  // Update counter badges
+  const totalCountEl = document.getElementById("gh-total-count");
+  const publicCountEl = document.getElementById("gh-public-count");
+  const privateCountEl = document.getElementById("gh-private-count");
+  const visibleCountEl = document.getElementById("gh-visible-count");
+
+  const pubCount = projects.filter(p => !p.isPrivate).length;
+  const privCount = projects.filter(p => p.isPrivate).length;
+
+  if (totalCountEl) totalCountEl.textContent = projects.length;
+  if (publicCountEl) publicCountEl.textContent = pubCount;
+  if (privateCountEl) privateCountEl.textContent = privCount;
+  if (visibleCountEl) visibleCountEl.textContent = projects.length;
+}
+
+/**
+ * Background Live Sync with GitHub API
+ * Safely enriches public repositories with live stars, forks, and push times
+ */
+async function syncWithGitHub() {
+  const syncIcon = document.getElementById("gh-sync-icon");
+  const syncStatus = document.getElementById("gh-sync-status");
+
+  if (syncIcon) syncIcon.classList.add("spinning");
+  if (syncStatus) syncStatus.textContent = "Syncing...";
 
   try {
     const res = await fetch(GH_API);
     if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-    const repos = await res.json();
+    const remoteRepos = await res.json();
 
-    // Sort: most recently pushed first
-    repos.sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+    let updatedAny = false;
+    const remoteMap = new Map();
+    remoteRepos.forEach(r => remoteMap.set(r.name.toLowerCase(), r));
 
-    // Render cards
-    repos.forEach((repo, i) => {
-      gridEl.appendChild(createProjectCard(repo, i));
+    masterProjectsList.forEach(p => {
+      const match = remoteMap.get(p.name.toLowerCase());
+      if (match) {
+        if (p.stars !== match.stargazers_count || p.forks !== match.forks_count || p.pushedAt !== match.pushed_at) {
+          p.stars = match.stargazers_count;
+          p.forks = match.forks_count;
+          p.pushedAt = match.pushed_at;
+          updatedAny = true;
+        }
+      }
     });
 
-    // Build filter bar
-    buildFilterBar(repos);
+    if (updatedAny) {
+      renderProjects(masterProjectsList);
+      applyFiltersAndSearch();
+    }
 
-    // Show grid
-    loadingEl.style.display = "none";
-    gridEl.style.display    = "";
-
+    if (syncStatus) syncStatus.textContent = "GitHub Synced";
   } catch (err) {
-    console.error("Failed to load GitHub projects:", err);
-    loadingEl.style.display = "none";
-    errorEl.style.display   = "";
+    console.warn("GitHub API live sync notice:", err.message);
+    if (syncStatus) syncStatus.textContent = "Catalog Synced";
+  } finally {
+    if (syncIcon) syncIcon.classList.remove("spinning");
   }
 }
 
-// Retry button
-const retryBtn = document.getElementById("gh-retry-btn");
-if (retryBtn) {
-  retryBtn.addEventListener("click", loadGitHubProjects);
+/**
+ * Master Initialization
+ */
+function initProjectsEngine() {
+  // Load master projects list from window.ALL_PROJECTS
+  masterProjectsList = (window.ALL_PROJECTS && Array.isArray(window.ALL_PROJECTS))
+    ? [...window.ALL_PROJECTS]
+    : [];
+
+  if (!masterProjectsList.length) {
+    console.warn("No projects found in window.ALL_PROJECTS");
+    return;
+  }
+
+  // Render cards immediately
+  renderProjects(masterProjectsList);
+  buildFilterBar(masterProjectsList);
+
+  // Setup Search Input
+  const searchInput = document.getElementById("gh-search-input");
+  if (searchInput) {
+    searchInput.addEventListener("input", applyFiltersAndSearch);
+  }
+
+  // Setup Reset Button in Empty State
+  const clearBtn = document.getElementById("gh-clear-search-btn");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      if (searchInput) searchInput.value = "";
+      activeFilterKey = "all";
+      const filterBtns = document.querySelectorAll("#gh-filter-list .gh-filter-btn");
+      filterBtns.forEach(b => {
+        b.classList.toggle("active", b.dataset.filter === "all");
+      });
+      applyFiltersAndSearch();
+    });
+  }
+
+  // Setup Retry / Sync button
+  const retryBtn = document.getElementById("gh-retry-btn");
+  if (retryBtn) {
+    retryBtn.addEventListener("click", syncWithGitHub);
+  }
+
+  // Trigger background sync with GitHub API
+  syncWithGitHub();
 }
 
-// Kick off on page load
-loadGitHubProjects();
+// Kick off projects engine when DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initProjectsEngine);
+} else {
+  initProjectsEngine();
+}
 
 
 // page navigation variables

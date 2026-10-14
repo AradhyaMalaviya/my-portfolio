@@ -516,17 +516,50 @@
 
           <section class="projects" id="github-projects-section">
 
-            <ul class="gh-filter-list" id="gh-filter-list">
-              <li class="gh-filter-item">
-                <button class="gh-filter-btn active" data-lang="all">All</button>
-              </li>
-            </ul>
+            <div class="gh-controls-container">
+              <!-- Search Bar -->
+              <div class="gh-search-wrapper">
+                <ion-icon name="search-outline"></ion-icon>
+                <input
+                  type="text"
+                  id="gh-search-input"
+                  class="gh-search-input"
+                  placeholder="Search 35+ projects by name, technology (Python, React, FastAPI...), or keyword..."
+                  aria-label="Search all projects"
+                />
+              </div>
 
-            <div class="gh-loading" id="gh-loading">
+              <!-- Filter Tabs -->
+              <ul class="gh-filter-list" id="gh-filter-list">
+                <li class="gh-filter-item">
+                  <button class="gh-filter-btn active" data-filter="all">All (35)</button>
+                </li>
+              </ul>
+
+              <!-- Stats & Sync Summary Bar -->
+              <div class="gh-stats-bar">
+                <span>Showing <strong id="gh-visible-count">35</strong> of <strong id="gh-total-count">35</strong> Projects</span>
+                <div class="gh-stats-counts">
+                  <span class="gh-stat-pill public-pill"><ion-icon name="globe-outline"></ion-icon> <strong id="gh-public-count">18</strong> Public</span>
+                  <span class="gh-stat-pill private-pill"><ion-icon name="lock-closed-outline"></ion-icon> <strong id="gh-private-count">17</strong> Private</span>
+                  <span class="gh-stat-pill"><ion-icon name="sync-outline" id="gh-sync-icon" class="gh-sync-icon"></ion-icon> <span id="gh-sync-status">GitHub Synced</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Empty Search State -->
+            <div class="gh-empty-state" id="gh-empty-state" style="display:none;">
+              <ion-icon name="file-tray-outline" class="gh-empty-icon"></ion-icon>
+              <p class="gh-empty-title">No matching projects found</p>
+              <p class="gh-empty-subtitle">Try adjusting your keywords or clearing the active filter.</p>
+              <button class="gh-retry-btn" id="gh-clear-search-btn">
+                <ion-icon name="refresh-outline"></ion-icon>
+                <span>Reset Search & Filters</span>
+              </button>
+            </div>
+
+            <div class="gh-loading" id="gh-loading" style="display:none;">
               <div class="gh-skeleton-grid">
-                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
-                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
-                <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
                 <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
                 <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
                 <div class="gh-skeleton-card"><div class="sk-header"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-footer"><div class="sk-dot"></div><div class="sk-dot"></div><div class="sk-dot"></div></div></div>
@@ -535,14 +568,14 @@
 
             <div class="gh-error" id="gh-error" style="display:none;">
               <ion-icon name="cloud-offline-outline" class="gh-error-icon"></ion-icon>
-              <p class="gh-error-text">Unable to load projects from GitHub.</p>
+              <p class="gh-error-text">Unable to load live updates from GitHub.</p>
               <button class="gh-retry-btn" id="gh-retry-btn">
                 <ion-icon name="refresh-outline"></ion-icon>
-                <span>Retry</span>
+                <span>Retry Sync</span>
               </button>
             </div>
 
-            <ul class="gh-project-grid" id="gh-project-grid" style="display:none;"></ul>
+            <ul class="gh-project-grid" id="gh-project-grid"></ul>
 
           </section>
         </article>
@@ -1057,6 +1090,7 @@
       </div>
     </footer>
 
+    <script src="./assets/js/projects-data.js"></script>
     <script src="./assets/js/script.js"></script>
 
     <script

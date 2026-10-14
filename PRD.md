@@ -45,42 +45,45 @@ A high-performance, responsive Single-Page Application (SPA) designed to act as 
 *   **Implementation:** `script.js` iterates through all pages, adding/removing the `.active` class based on innerHTML matching.
 *   **State:** Each page transition triggers `window.scrollTo(0, 0)` for consistent user experience.
 
-### 3.2 Dynamic GitHub Projects Engine
-*   **Endpoint:** `https://api.github.com/users/AradhyaMalaviya/repos?sort=pushed`
+### 3.2 Master Projects Catalog & Dynamic GitHub Engine (v5.0)
+*   **Dual Data Architecture:**
+    *   **Master Catalog (`projects-data.js`):** Offline-first, comprehensive registry containing all 35 repositories (18 Public, 17 Private) with rich descriptions, technology pills, direct repository/demo URLs, and visibility indicators.
+    *   **Live Background Sync (`api.github.com`):** Queries GitHub API asynchronously for live updates to star counts, fork counts, and push timestamps for public repositories without rate-limit blocking or hiding private projects.
 *   **Data Processing:** 
-    *   **Sorting:** Most recently updated repos appear first.
-    *   **Formatting:** Repo names are cleaned (dashes/underscores removed) and Title-Cased.
-    *   **Relative Time:** Custom `timeAgo()` function converts timestamps to human-readable strings (e.g., "Updated 2 days ago").
-    *   **Branding:** `hashColor()` function generates consistent HSL colors based on the repo name string to provide unique card gradients.
+    *   **Formatting:** Clean display names, technology stack tags, and visibility badges (`Public`, `Private`, `Featured`, `Forked`).
+    *   **Relative Time:** Custom `timeAgo()` function converts ISO timestamps to natural human language.
+    *   **Branding:** Deterministic `hashColor()` generates unique card gradient banners.
+*   **Interactive Controls:**
+    *   **Live Search Bar:** Real-time search by title, tech stack keywords (Python, React, FastAPI...), or description with dynamic count update.
+    *   **Categorized Filter Tabs:** `All (35)`, `Featured`, `Public (18)`, `Private (17)`, `AI / ML`, `Full-Stack`, `TypeScript`, `Python`, `JavaScript`, `Automation`, `Web`.
+    *   **Live Stats Bar:** Real-time summary showing visible project count, public/private breakdown, and GitHub sync status indicator.
 *   **UI Features:** 
-    *   **Preview Images:** Each card displays a real project screenshot via the `PROJECT_PREVIEWS` mapping. The banner area is a clickable `<a>` tag linking to the live deployment (if `repo.homepage` exists) or to the GitHub source.
-    *   **Hover Overlay:** A glassmorphism chip (`backdrop-filter: blur(14px)`) with "View Live" / "View Project" text and icon appears on hover over the preview banner.
-    *   **Image Effects:** Preview images use `object-fit: cover` with `brightness(0.85)` that zooms to `scale(1.08)` and brightens to `brightness(1)` on hover.
-    *   **Fallback Banner:** Repos without a preview image fall back to a gradient background with a `code-slash-outline` icon.
-    *   **3D Tilt:** Raw JS calculation: `perspective(1000px) rotateX(calc(y - centerY)) rotateY(calc(x - centerX))`.
-    *   **Language Color Mapping:** Custom dictionary mapping languages (e.g., Python: `#3572A5`) to UI dots and shadows.
-    *   **Error Handling:** Stylized offline state with a `gh-retry-btn`.
+    *   **Preview Images:** High-resolution screenshots for flagship projects with glassmorphic "View Live" / "View Project" hover overlay.
+    *   **Fallback Banner:** Projects without static preview images use dynamic gradient banners with category/security icons.
+    *   **3D Tilt:** Perspective-based interactive tilt with cursor-following glare overlay.
+    *   **Protected Access Indication:** Private repositories are styled with clear lock badges and contextual source buttons.
 
 ### 3.3 Project Preview Image System
-*   **Architecture:** Static image files in `assets/images/projects/` mapped to repo names via a `PROJECT_PREVIEWS` JavaScript dictionary.
-*   **Current Mappings:**
+*   **Architecture:** Static image files in `assets/images/projects/` mapped to repo names via `PROJECT_PREVIEWS` and `projects-data.js`.
+*   **Showcased Mappings:**
     | Repo Name (Key) | Image File | Link Target |
     |---|---|---|
-    | `fitbox` | `fitbox.png` | `art-decoder-tool.vercel.app` |
+    | `fitbox` | `fitbox.png` | `fitbox-cto.pages.dev/auth` |
     | `heart_diseases-_predictions-` | `heart-diseases-predictions.png` | `heartdisease-taupe.vercel.app` |
     | `email-automation-tool` | `email-automation-tool.png` | GitHub source |
     | `rackandroll-cafe` | `rackandroll-cafe.png` | GitHub source |
     | `thebadgercompany` | `thebadgercompany.png` | GitHub source |
+    | `neural-retail-ai` | `neural-retail-ai.png` | GitHub source |
+    | `detoxing` | `detoxing.jpg` | `detoxingwithbagga.vercel.app` |
+    | `web-development-internship-project` | `web-development-internship.webp` | `web-development-internship-project.vercel.app` |
+    | `my-portfolio` | `portfolio-hero.png` | `personal-portfolio-iota-silk-19.vercel.app/` |
 *   **Banner Variants:**
-    *   `.gh-card-banner--preview`: Contains a full-bleed `<img>` with subtle overlay and hover effects.
-    *   `.gh-card-banner--fallback`: Contains the gradient background with `code-slash-outline` icon for unmapped repos.
+    *   `.gh-card-banner--preview`: Full-bleed responsive image with subtle dark gradient overlay and interactive zoom.
+    *   `.gh-card-banner--fallback`: Dynamic gradient banner with reactive icons (`hardware-chip-outline`, `shield-checkmark-outline`, `code-slash-outline`).
 *   **CSS Specifications:**
     *   Banner height: `180px`.
     *   Preview image: `object-fit: cover`, `object-position: top center`, `filter: brightness(0.85)`.
     *   Hover state: `transform: scale(1.08)`, `filter: brightness(1)`.
-*   **Adding New Previews:**
-    1. Place PNG (16:9 ratio recommended) in `assets/images/projects/<repo-name>.png`.
-    2. Add entry to `PROJECT_PREVIEWS` in `script.js`: `"repo-name": "./assets/images/projects/repo-name.png"`.
 
 ### 3.4 Certification Verification System
 *   **Architecture:** Static HTML grid with dynamic modal injection.

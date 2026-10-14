@@ -35,15 +35,27 @@ Every card includes the project preview image, technology tags, star/fork counts
 
 ![Project Card Details — Titles, descriptions, tech tags, and action buttons](./assets/images/readme/portfolio-projects-2.png)
 
-### Showcased Projects
+### Showcased Flagship Projects
 
-| Project | Preview | Tech | Live URL |
-|---------|---------|------|----------|
-| **FitBox** | AI Fitness Coach — workout tracking, Indian meal logging, gym buddy matching | TypeScript, React, FastAPI | [art-decoder-tool.vercel.app](https://art-decoder-tool.vercel.app) |
-| **Heart Disease Predictions** | ML-based cardiac risk assessment tool | Python, Scikit-learn, FastAPI | [heartdisease-taupe.vercel.app](https://heartdisease-taupe.vercel.app) |
-| **Email Automation Tool** | Campaign analytics dashboard with email template editor | JavaScript | [GitHub Source](https://github.com/AradhyaMalaviya/email-automation-tool) |
-| **Rackandroll Cafe** | Restaurant landing page with menu and reservation system | JavaScript | [GitHub Source](https://github.com/AradhyaMalaviya/rackandroll-cafe) |
-| **TheBadgerCompany** | Luxury shoe e-commerce landing page | JavaScript | [GitHub Source](https://github.com/AradhyaMalaviya/thebadgercompany) |
+| Project | Visibility | Preview | Tech Stack | Live Demo / Repo |
+|---------|------------|---------|------------|------------------|
+| **FitBox** | Public | AI Fitness & Nutrition Ecosystem | TypeScript, React, FastAPI, PostgreSQL | [Live App](https://fitbox-cto.pages.dev/auth) · [GitHub](https://github.com/AradhyaMalaviya/FitBox) |
+| **Neural Retail AI** | Public | Sales Intelligence & Demand Forecasting | Python, Scikit-learn, FastAPI, XGBoost | [GitHub Source](https://github.com/AradhyaMalaviya/Neural-Retail-AI) |
+| **GenAI Cognitive Radio** | Public | 5G & Satellite Link Optimizer (DQN) | Python, PyTorch, Reinforcement Learning | [GitHub Source](https://github.com/AradhyaMalaviya/genai-cognitive-radio) |
+| **MediCare AI** | Public | Clinical Triage & Medicine Recommender | Python, Scikit-Learn, Flask, Docker | [GitHub Source](https://github.com/AradhyaMalaviya/MED-AI) |
+| **Heart Disease Predictions** | Public | Clinical Cardiac Risk Assessment | Python, Scikit-learn, FastAPI, Vercel | [Live App](https://heartdisease-taupe.vercel.app) · [GitHub](https://github.com/AradhyaMalaviya/HEART_DISEASES-_PREDICTIONS-) |
+| **Heart Risk AI** | Private | High-Precision Cardiac Predictor API | Python, FastAPI, TypeScript, Scikit-learn | [Live App](https://heart-risk-ai.vercel.app) · [Private Repo](https://github.com/AradhyaMalaviya/heart-risk-ai) |
+| **DetoxWithBagga** | Public | Emotional Wellness & Therapy Portal | TypeScript, Next.js 16, Framer Motion | [Live App](https://detoxingwithbagga.vercel.app) · [GitHub](https://github.com/AradhyaMalaviya/Detoxing) |
+| **NorthPeak Digital** | Public | Enterprise Web Platform (100/100 Lighthouse) | HTML5, CSS3, JavaScript, Vercel | [Live App](https://web-development-internship-project.vercel.app) · [GitHub](https://github.com/AradhyaMalaviya/Web-Development-Internship-Project) |
+| **License Plate Recognition** | Public | Real-time Computer Vision ALPR | Python, OpenCV, EasyOCR, NumPy | [GitHub Source](https://github.com/AradhyaMalaviya/license-plate-recognition) |
+| **Email Automation Tool** | Public | Recruiter Batch Outreach Engine | JavaScript, Node.js, Nodemailer | [GitHub Source](https://github.com/AradhyaMalaviya/email-automation-tool) |
+| **Internship Finder Tool** | Private | Automated Lead Scraping & Dispatch | JavaScript, Node.js, Express, Cheerio | [Private Repo](https://github.com/AradhyaMalaviya/Internship-finder-automation-tool) |
+| **Accredian Enterprise Clone** | Public | Enterprise Marketing Platform Clone | TypeScript, Next.js, Tailwind, Framer Motion | [Live App](https://accredian-enterprise-clone-gray.vercel.app) · [GitHub](https://github.com/AradhyaMalaviya/accredian-enterprise-clone) |
+| **Bulk Email Sender (SvelteKit)** | Public | Enterprise Bulk Campaign Sender | Svelte, SvelteKit, TypeScript, Tailwind | [Live App](https://assigment1-pi-pearl.vercel.app) · [GitHub](https://github.com/AradhyaMalaviya/assigment1) |
+| **Rackandroll Cafe** | Public | Gaming Lounge & Cafe Booking Platform | JavaScript, Node.js, Express, MongoDB | [GitHub Source](https://github.com/AradhyaMalaviya/rackandroll-cafe) |
+| **TheBadgerCompany** | Public | Luxury Footwear E-Commerce Store | JavaScript, React, Vite, Tailwind | [GitHub Source](https://github.com/AradhyaMalaviya/thebadgercompany) |
+
+> **Complete 35-Project Registry:** Every single project made so far — spanning **18 Public repositories** and **17 Private repositories** — is indexed on the live portfolio with category tabs, live keywords search, and real-time GitHub synchronization.
 
 ### FitBox — AI Fitness Coach (Live Deployment)
 
