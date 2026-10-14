@@ -2,10 +2,11 @@
 
 ## 1. Project Overview
 **Project Name:** Aaradhya Malaviya Professional Portfolio  
-**Version:** 4.0 (Live Preview Cards Release)  
+**Version:** 5.0 (Cloudflare Pages & Master Projects Registry Release)  
 **Author:** Aaradhya Malaviya  
 **Status:** Production Ready  
-**Deployment Path:** GitHub → Vercel (CI/CD)
+**Deployment Path:** Cloudflare Pages (Primary Production) · GitHub Pages (CNAME) · Vercel (CI/CD)  
+**Live Production URL:** [https://aaradhya-malaviya-portfolio.pages.dev](https://aaradhya-malaviya-portfolio.pages.dev)
 
 ### 1.1 Executive Summary
 A high-performance, responsive Single-Page Application (SPA) designed to act as a comprehensive professional identity hub. The platform bridges the gap between a traditional resume and a live project showcase by integrating real-time data from GitHub, interactive certification verification, and live project preview images that visually represent each deployed application.

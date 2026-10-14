@@ -658,7 +658,7 @@ window.ALL_PROJECTS = [
     "isFork": false,
     "isFeatured": true,
     "repoUrl": "https://github.com/AradhyaMalaviya/my-portfolio",
-    "liveUrl": "https://personal-portfolio-iota-silk-19.vercel.app/",
+    "liveUrl": "https://aaradhya-malaviya-portfolio.pages.dev",
     "previewImage": "./assets/images/readme/portfolio-hero.png",
     "stars": 1,
     "forks": 0,

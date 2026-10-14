@@ -1,6 +1,7 @@
 # 🎯 Personal Portfolio Website
 
-> **Live Website:** [https://personal-portfolio-iota-silk-19.vercel.app/](https://personal-portfolio-iota-silk-19.vercel.app/)
+> **Live Website (Cloudflare Pages):** [https://aaradhya-malaviya-portfolio.pages.dev](https://aaradhya-malaviya-portfolio.pages.dev)  
+> **GitHub Pages:** [http://aaradhyamalaviya.portfolio/](http://aaradhyamalaviya.portfolio/) · [https://aradhyamalaviya.github.io/my-portfolio/](https://aradhyamalaviya.github.io/my-portfolio/)
 
 ---
 
@@ -85,7 +86,7 @@ Actively seeking **Software Developer**, **Full-Stack Developer**, and **AI/ML E
 | **Logic** | Vanilla JavaScript ES6 (GitHub API, 3D tilt, typing, scroll reveal) |
 | **Icons** | Ionicons (CDN) |
 | **Contact** | FormSubmit (AJAX with loading/success/error states) |
-| **Deployment** | Vercel (CI/CD from GitHub) |
+| **Deployment** | Cloudflare Pages (Primary Production), GitHub Pages (CNAME), Vercel (CI/CD) |
 
 ### Professional Stack (Showcased Projects)
 | Category | Technologies |
