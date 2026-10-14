@@ -189,6 +189,113 @@ let masterProjectsList = [];
 let activeFilterKey = "all";
 
 /**
+ * Generate rich, instant SVG developer preview mockup for projects
+ * Ensures 100% zero-blank, zero-delay rendering with beautiful IDE/terminal/wireframe visuals
+ */
+function createProjectMockupSvg(project, color1, color2, uid) {
+  const cat = (project.category || "Full-Stack").toLowerCase();
+  const lang = project.language || "TypeScript";
+  const name = project.name || "project";
+  const safeName = (project.displayName || formatRepoName(name)).replace(/[<>&"]/g, "");
+  const gradId = `g_${uid}`;
+  const patId = `p_${uid}`;
+
+  let interior = "";
+
+  if (cat.includes("ai") || cat.includes("ml") || cat.includes("data")) {
+    interior = `
+      <g opacity="0.9" font-family="'Fira Code', 'JetBrains Mono', Consolas, monospace" font-size="10">
+        <text x="36" y="68" fill="#f07178">import <tspan fill="#82aaff">torch.nn</tspan> as <tspan fill="#ffcb6b">nn</tspan></text>
+        <text x="36" y="86" fill="#c792ea">class <tspan fill="#ffcb6b">NeuralModel</tspan>(nn.Module):</text>
+        <text x="48" y="104" fill="#89ddff">def <tspan fill="#82aaff">forward</tspan>(self, x):</text>
+        <text x="60" y="122" fill="#c3e88d">return <tspan fill="#f78c6c">softmax</tspan>(out)</text>
+      </g>
+      <rect x="228" y="54" width="138" height="88" rx="8" fill="#181822" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <circle cx="242" cy="70" r="4" fill="#27c93f"/>
+      <text x="252" y="74" fill="#a0a0c0" font-family="system-ui, sans-serif" font-size="9" font-weight="600">MODEL METRICS</text>
+      <rect x="242" y="112" width="12" height="18" rx="2" fill="${color1}" opacity="0.5"/>
+      <rect x="258" y="104" width="12" height="26" rx="2" fill="${color1}" opacity="0.7"/>
+      <rect x="274" y="96" width="12" height="34" rx="2" fill="${color1}" opacity="0.9"/>
+      <rect x="290" y="86" width="12" height="44" rx="2" fill="${color2}"/>
+      <text x="312" y="102" fill="#27c93f" font-family="monospace" font-size="11" font-weight="700">98.8%</text>
+      <text x="312" y="118" fill="#707090" font-family="system-ui, sans-serif" font-size="8.5">ACCURACY</text>
+    `;
+  } else if (cat.includes("automation")) {
+    interior = `
+      <g opacity="0.95" font-family="'Fira Code', 'JetBrains Mono', Consolas, monospace" font-size="9.5">
+        <text x="36" y="68" fill="#89ddff">➜ <tspan fill="#c3e88d">~/automation</tspan> <tspan fill="#ffffff">$ run-pipeline</tspan></text>
+        <text x="36" y="88" fill="#82aaff">[✓] <tspan fill="#d0d0e0">Workers spawned:</tspan> <tspan fill="#ffcb6b">8 active</tspan></text>
+        <text x="36" y="108" fill="#27c93f">[✓] <tspan fill="#d0d0e0">Tasks synced:</tspan> <tspan fill="#82aaff">100% complete</tspan></text>
+        <text x="36" y="128" fill="#f78c6c">↳ Status: <tspan fill="#27c93f">HEALTHY (0.24s)</tspan> <tspan fill="#ffffff" opacity="0.8">▋</tspan></text>
+      </g>
+    `;
+  } else if (cat.includes("mobile")) {
+    interior = `
+      <rect x="145" y="48" width="110" height="106" rx="12" fill="#161620" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/>
+      <rect x="180" y="52" width="40" height="4" rx="2" fill="#303040"/>
+      <rect x="155" y="64" width="90" height="28" rx="6" fill="${color1}" fill-opacity="0.25" stroke="rgba(255,255,255,0.06)"/>
+      <rect x="160" y="70" width="45" height="5" rx="2.5" fill="#ffffff" opacity="0.8"/>
+      <rect x="160" y="78" width="65" height="4" rx="2" fill="#ffffff" opacity="0.4"/>
+      <rect x="155" y="98" width="42" height="22" rx="4" fill="rgba(255,255,255,0.06)"/>
+      <rect x="203" y="98" width="42" height="22" rx="4" fill="rgba(255,255,255,0.06)"/>
+      <rect x="155" y="126" width="90" height="18" rx="6" fill="${color2}" fill-opacity="0.85"/>
+      <text x="200" y="138" fill="#ffffff" font-family="system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle">LAUNCH APP</text>
+    `;
+  } else {
+    interior = `
+      <rect x="34" y="56" width="34" height="92" rx="6" fill="#161622" stroke="rgba(255,255,255,0.08)"/>
+      <circle cx="51" cy="70" r="4.5" fill="${color1}"/>
+      <rect x="42" y="84" width="18" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+      <rect x="42" y="94" width="18" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+      <rect x="42" y="104" width="18" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+      <rect x="76" y="56" width="290" height="92" rx="6" fill="#161622" stroke="rgba(255,255,255,0.08)"/>
+      <rect x="88" y="66" width="100" height="6" rx="3" fill="#ffffff" opacity="0.7"/>
+      <rect x="296" y="66" width="56" height="14" rx="4" fill="${color2}" fill-opacity="0.3" stroke="${color2}" stroke-width="0.8"/>
+      <text x="324" y="76" fill="#ffffff" font-family="system-ui, sans-serif" font-size="8" font-weight="600" text-anchor="middle">ONLINE</text>
+      <rect x="88" y="86" width="80" height="52" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)"/>
+      <rect x="96" y="94" width="40" height="4" rx="2" fill="${color1}"/>
+      <rect x="96" y="104" width="55" height="12" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <text x="96" y="128" fill="#27c93f" font-family="monospace" font-size="8">✓ 99.9% Up</text>
+      <rect x="176" y="86" width="84" height="52" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)"/>
+      <rect x="184" y="94" width="40" height="4" rx="2" fill="${color2}"/>
+      <path d="M 186 126 Q 200 110, 214 118 T 248 106" fill="none" stroke="${color1}" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="268" y="86" width="88" height="52" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)"/>
+      <rect x="276" y="94" width="50" height="4" rx="2" fill="#ffcb6b"/>
+      <text x="276" y="112" fill="#ffffff" font-family="monospace" font-size="9" font-weight="700">REST API</text>
+      <text x="276" y="126" fill="#a0a0b0" font-family="monospace" font-size="8">200 OK</text>
+    `;
+  }
+
+  return `
+    <svg viewBox="0 0 400 180" width="100%" height="180" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" class="gh-card-svg-mockup">
+      <defs>
+        <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${color1}" stop-opacity="0.32"/>
+          <stop offset="50%" stop-color="#14141c" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="${color2}" stop-opacity="0.28"/>
+        </linearGradient>
+        <pattern id="${patId}" width="16" height="16" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="0.8" fill="#ffffff" fill-opacity="0.08"/>
+        </pattern>
+      </defs>
+      <rect width="400" height="180" fill="#121218"/>
+      <rect width="400" height="180" fill="url(#${gradId})"/>
+      <rect width="400" height="180" fill="url(#${patId})"/>
+      <rect x="20" y="14" width="360" height="152" rx="10" fill="#161620" fill-opacity="0.88" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      <circle cx="36" cy="30" r="4" fill="#ff5f56"/>
+      <circle cx="48" cy="30" r="4" fill="#ffbd2e"/>
+      <circle cx="60" cy="30" r="4" fill="#27c93f"/>
+      <rect x="120" y="20" width="160" height="20" rx="5" fill="rgba(255,255,255,0.05)"/>
+      <text x="200" y="34" text-anchor="middle" fill="#c0c0d8" font-family="'Fira Code', 'JetBrains Mono', Consolas, monospace" font-size="10" font-weight="600">${safeName.length > 22 ? safeName.substring(0, 20) + '...' : safeName}</text>
+      <rect x="306" y="22" width="62" height="16" rx="4" fill="${color1}" fill-opacity="0.25"/>
+      <text x="337" y="33" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700">${lang}</text>
+      <line x1="20" y1="44" x2="380" y2="44" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      ${interior}
+    </svg>
+  `;
+}
+
+/**
  * Build a single project-card <li> element
  */
 function createProjectCard(project, index) {
@@ -199,7 +306,8 @@ function createProjectCard(project, index) {
   li.dataset.visibility = project.isPrivate ? "private" : "public";
   li.dataset.featured = project.isFeatured ? "true" : "false";
   li.dataset.name = (project.name || "").toLowerCase();
-  li.style.animationDelay = `${Math.min(index * 0.04, 0.6)}s`;
+  // Zero-delay display for immediate rendering when clicking projects
+  li.style.animationDelay = "0s";
 
   const langColor = LANG_COLORS[project.language] || "#8b949e";
   const hasDesc = project.description && project.description.trim();
@@ -250,40 +358,36 @@ function createProjectCard(project, index) {
   const hasLive = liveUrl && liveUrl.trim();
   const displayName = project.displayName || formatRepoName(project.name);
 
-  // Build the banner content
+  // Build high-reliability banner content with zero chance of blank state
+  const mockupSvg = createProjectMockupSvg(project, color1, color2, index);
+  const bannerTarget = hasLive ? liveUrl : repoUrl;
+  const hoverText = hasLive ? 'View Live' : (project.isPrivate ? 'Private Repo' : 'View Project');
+  const hoverIcon = hasLive ? 'open-outline' : (project.isPrivate ? 'lock-closed-outline' : 'eye-outline');
+
   let bannerContent;
   if (previewImg) {
-    const bannerInner = `
-       <div class="gh-card-banner-overlay gh-card-banner-overlay--subtle"></div>
-       <img class="gh-card-preview-img" src="${previewImg}" alt="Preview of ${displayName}" loading="lazy" />
-       <div class="gh-card-preview-hover">
-         <ion-icon name="${hasLive ? 'open-outline' : (project.isPrivate ? 'lock-closed-outline' : 'eye-outline')}"></ion-icon>
-         <span>${hasLive ? 'View Live' : (project.isPrivate ? 'Private Repo' : 'View Project')}</span>
-       </div>
+    bannerContent = `
+      <a href="${bannerTarget}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="Open ${displayName}">
+        <div class="gh-mockup-fallback">${mockupSvg}</div>
+        <img class="gh-card-preview-img" src="${previewImg}" alt="Preview of ${displayName}" loading="${index < 6 ? 'eager' : 'lazy'}" onerror="this.style.display='none';" onload="this.classList.add('img-loaded');" />
+        <div class="gh-card-banner-overlay gh-card-banner-overlay--subtle"></div>
+        <div class="gh-card-preview-hover">
+          <ion-icon name="${hoverIcon}"></ion-icon>
+          <span>${hoverText}</span>
+        </div>
+      </a>
     `;
-
-    if (hasLive) {
-      bannerContent = `<a href="${liveUrl}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="Open ${displayName} live demo">
-        ${bannerInner}
-      </a>`;
-    } else {
-      bannerContent = `<a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--preview" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="View ${displayName} repository">
-        ${bannerInner}
-      </a>`;
-    }
   } else {
-    // Fallback gradient banner with code icon
-    const bannerTarget = hasLive ? liveUrl : repoUrl;
-    bannerContent = `<a href="${bannerTarget}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--fallback" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="View ${displayName}">
-      <div class="gh-card-banner-overlay"></div>
-      <div class="gh-card-icon-large">
-        <ion-icon name="${project.category === 'AI/ML' ? 'hardware-chip-outline' : (project.isPrivate ? 'shield-checkmark-outline' : 'code-slash-outline')}"></ion-icon>
-      </div>
-      <div class="gh-card-preview-hover">
-        <ion-icon name="${hasLive ? 'open-outline' : 'eye-outline'}"></ion-icon>
-        <span>${hasLive ? 'View Live' : (project.isPrivate ? 'Private Repo' : 'View Project')}</span>
-      </div>
-    </a>`;
+    bannerContent = `
+      <a href="${bannerTarget}" target="_blank" rel="noopener noreferrer" class="gh-card-banner gh-card-banner--mockup" style="background: linear-gradient(135deg, ${color1}, ${color2});" aria-label="Open ${displayName}">
+        <div class="gh-mockup-fallback">${mockupSvg}</div>
+        <div class="gh-card-banner-overlay gh-card-banner-overlay--subtle"></div>
+        <div class="gh-card-preview-hover">
+          <ion-icon name="${hoverIcon}"></ion-icon>
+          <span>${hoverText}</span>
+        </div>
+      </a>
+    `;
   }
 
   // Tech tags HTML
@@ -491,8 +595,28 @@ function renderProjects(projects) {
 }
 
 /**
+ * Update card stats directly in the existing DOM without clearing innerHTML
+ */
+function updateCardStatsInDOM(repoName, stars, forks, pushedAt) {
+  const card = document.querySelector(`.gh-card[data-name="${repoName.toLowerCase()}"]`);
+  if (!card) return;
+
+  const starsEl = card.querySelector('[title="Stars"] span');
+  if (starsEl) starsEl.textContent = stars;
+
+  const forksEl = card.querySelector('[title="Forks"] span');
+  if (forksEl) forksEl.textContent = forks;
+
+  const updatedEl = card.querySelector('.gh-card-updated');
+  if (updatedEl && pushedAt) {
+    updatedEl.innerHTML = `<ion-icon name="time-outline"></ion-icon> ${timeAgo(pushedAt)}`;
+  }
+}
+
+/**
  * Background Live Sync with GitHub API
  * Safely enriches public repositories with live stars, forks, and push times
+ * Updates the DOM in-place to avoid flickering or blank states
  */
 async function syncWithGitHub() {
   const syncIcon = document.getElementById("gh-sync-icon");
@@ -506,7 +630,6 @@ async function syncWithGitHub() {
     if (!res.ok) throw new Error(`GitHub API ${res.status}`);
     const remoteRepos = await res.json();
 
-    let updatedAny = false;
     const remoteMap = new Map();
     remoteRepos.forEach(r => remoteMap.set(r.name.toLowerCase(), r));
 
@@ -517,15 +640,10 @@ async function syncWithGitHub() {
           p.stars = match.stargazers_count;
           p.forks = match.forks_count;
           p.pushedAt = match.pushed_at;
-          updatedAny = true;
+          updateCardStatsInDOM(p.name, p.stars, p.forks, p.pushedAt);
         }
       }
     });
-
-    if (updatedAny) {
-      renderProjects(masterProjectsList);
-      applyFiltersAndSearch();
-    }
 
     if (syncStatus) syncStatus.textContent = "GitHub Synced";
   } catch (err) {
@@ -539,6 +657,8 @@ async function syncWithGitHub() {
 /**
  * Master Initialization
  */
+let projectsEngineInitialized = false;
+
 function initProjectsEngine() {
   // Load master projects list from window.ALL_PROJECTS
   masterProjectsList = (window.ALL_PROJECTS && Array.isArray(window.ALL_PROJECTS))
@@ -553,6 +673,9 @@ function initProjectsEngine() {
   // Render cards immediately
   renderProjects(masterProjectsList);
   buildFilterBar(masterProjectsList);
+
+  if (projectsEngineInitialized) return;
+  projectsEngineInitialized = true;
 
   // Setup Search Input
   const searchInput = document.getElementById("gh-search-input");
@@ -596,21 +719,40 @@ if (document.readyState === "loading") {
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// add event to all nav link
+// Add robust event listener to all nav links with instant reveal and zero-lag display
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
+    const targetPage = this.textContent.trim().toLowerCase();
 
     for (let j = 0; j < pages.length; j++) {
-      if (this.innerHTML.toLowerCase() === pages[j].dataset.page) {
+      const pageKey = pages[j].dataset.page ? pages[j].dataset.page.trim().toLowerCase() : "";
+
+      if (targetPage === pageKey) {
         pages[j].classList.add("active");
-        navigationLinks[j].classList.add("active");
+        if (navigationLinks[j]) navigationLinks[j].classList.add("active");
         window.scrollTo(0, 0);
+
+        // Immediately reveal all scroll-reveal / hidden-fade items in the newly active page
+        pages[j].querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
+        pages[j].querySelectorAll('.hidden-fade').forEach(el => el.classList.add('fade-in'));
+
+        // If target is projects, guarantee zero delay and ensure cards are displayed
+        if (pageKey === "projects") {
+          const ghSection = document.getElementById("github-projects-section");
+          if (ghSection) {
+            ghSection.classList.remove("reveal");
+            ghSection.classList.add("revealed");
+          }
+          const gridEl = document.getElementById("gh-project-grid");
+          if (gridEl && gridEl.children.length === 0 && masterProjectsList.length > 0) {
+            renderProjects(masterProjectsList);
+          }
+        }
       } else {
         pages[j].classList.remove("active");
-        navigationLinks[j].classList.remove("active");
+        if (navigationLinks[j]) navigationLinks[j].classList.remove("active");
       }
     }
-
   });
 }
 
@@ -742,7 +884,6 @@ if (certificateModal) {
     '.blog-post-item',
     '.contact-form',
     '.mapbox',
-    '#github-projects-section',
   ];
 
   revealSelectors.forEach(sel => {
