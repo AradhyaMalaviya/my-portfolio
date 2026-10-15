@@ -16,8 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Set the Resend API Key (Ideally, use os.getenv("RESEND_API_KEY") in production)
-resend.api_key = "re_cxNr7UX1_4y8e3ECB5KJ8ZGCd2b2CWPvc"
+# Set the Resend API Key from environment variable
+resend.api_key = os.getenv("RESEND_API_KEY", "")
 
 class ContactForm(BaseModel):
     name: str

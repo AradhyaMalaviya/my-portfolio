@@ -12,7 +12,16 @@ const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+if (sidebar && sidebarBtn) {
+  sidebarBtn.addEventListener("click", function () {
+    const isExpanded = sidebar.classList.toggle("active");
+    const span = sidebarBtn.querySelector("span");
+    if (span) {
+      span.textContent = isExpanded ? "Hide Contacts" : "Show Contacts";
+    }
+    sidebarBtn.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+  });
+}
 
 
 
@@ -29,8 +38,10 @@ const modalText = document.querySelector("[data-modal-text]");
 
 // modal toggle function
 const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
+  if (!modalContainer || !overlay) return;
+  const isActive = modalContainer.classList.toggle("active");
   overlay.classList.toggle("active");
+  document.body.classList.toggle("modal-open", isActive);
 }
 
 // add click event to all modal items
@@ -50,8 +61,15 @@ for (let i = 0; i < testimonialsItem.length; i++) {
 }
 
 // add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
+if (modalCloseBtn) modalCloseBtn.addEventListener("click", testimonialsModalFunc);
+if (overlay) overlay.addEventListener("click", testimonialsModalFunc);
+
+// close testimonials modal on Escape key
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && modalContainer && modalContainer.classList.contains("active")) {
+    testimonialsModalFunc();
+  }
+});
 
 
 

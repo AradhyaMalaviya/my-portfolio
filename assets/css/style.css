@@ -333,7 +333,7 @@ main {
 }
 
 .sidebar.active {
-  max-height: 405px;
+  max-height: 460px;
 }
 
 .sidebar-info {
@@ -1313,7 +1313,8 @@ main {
   opacity: 1;
 }
 
-body.certificate-modal-open {
+body.certificate-modal-open,
+body.modal-open {
   overflow: hidden;
 }
 
