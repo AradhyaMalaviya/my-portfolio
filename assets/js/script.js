@@ -715,49 +715,90 @@ if (document.readyState === "loading") {
 }
 
 
-// page navigation variables
+// ──────────────────────────────────────────────
+//  PAGE NAVIGATION & HASH ROUTING
+// ──────────────────────────────────────────────
+
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// Add robust event listener to all nav links with instant reveal and zero-lag display
-for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
-    const targetPage = this.textContent.trim().toLowerCase();
+function navigateToPage(targetPage, updateHash = true) {
+  if (!targetPage) return;
+  const pageName = targetPage.trim().toLowerCase().replace(/^#/, "");
+  let found = false;
 
-    for (let j = 0; j < pages.length; j++) {
-      const pageKey = pages[j].dataset.page ? pages[j].dataset.page.trim().toLowerCase() : "";
+  for (let j = 0; j < pages.length; j++) {
+    const pageKey = pages[j].dataset.page ? pages[j].dataset.page.trim().toLowerCase() : "";
 
-      if (targetPage === pageKey) {
-        pages[j].classList.add("active");
-        if (navigationLinks[j]) navigationLinks[j].classList.add("active");
-        window.scrollTo(0, 0);
+    if (pageName === pageKey) {
+      found = true;
+      pages[j].classList.add("active");
+      window.scrollTo(0, 0);
 
-        // Immediately reveal all scroll-reveal / hidden-fade items in the newly active page
-        pages[j].querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
-        pages[j].querySelectorAll('.hidden-fade').forEach(el => el.classList.add('fade-in'));
+      // Immediately reveal all scroll-reveal / hidden-fade items in the active page
+      pages[j].querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
+      pages[j].querySelectorAll('.hidden-fade').forEach(el => el.classList.add('fade-in'));
 
-        // If target is projects, guarantee zero delay and ensure cards are displayed
-        if (pageKey === "projects") {
-          const ghSection = document.getElementById("github-projects-section");
-          if (ghSection) {
-            ghSection.classList.remove("reveal");
-            ghSection.classList.add("revealed");
-          }
-          const gridEl = document.getElementById("gh-project-grid");
-          if (gridEl && gridEl.children.length === 0 && masterProjectsList.length > 0) {
-            renderProjects(masterProjectsList);
-          }
+      // If target is projects, guarantee zero delay and ensure cards are displayed
+      if (pageKey === "projects") {
+        const ghSection = document.getElementById("github-projects-section");
+        if (ghSection) {
+          ghSection.classList.remove("reveal");
+          ghSection.classList.add("revealed");
         }
-      } else {
-        pages[j].classList.remove("active");
-        if (navigationLinks[j]) navigationLinks[j].classList.remove("active");
+        const gridEl = document.getElementById("gh-project-grid");
+        if (gridEl && gridEl.children.length === 0 && masterProjectsList.length > 0) {
+          renderProjects(masterProjectsList);
+        }
       }
+    } else {
+      pages[j].classList.remove("active");
+    }
+  }
+
+  // Update navigation button active state
+  navigationLinks.forEach(link => {
+    const linkText = link.textContent.trim().toLowerCase();
+    if (linkText === pageName) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
     }
   });
+
+  if (found && updateHash && window.history && window.history.replaceState) {
+    window.history.replaceState(null, "", `#${pageName}`);
+  }
+}
+
+// Add event listeners to all nav links
+navigationLinks.forEach(link => {
+  link.addEventListener("click", function () {
+    const targetPage = this.textContent.trim().toLowerCase();
+    navigateToPage(targetPage, true);
+  });
+});
+
+// Deep linking on load and hashchange
+function handleHashRoute() {
+  const hash = window.location.hash.replace(/^#/, "").trim().toLowerCase();
+  if (hash) {
+    navigateToPage(hash, false);
+  }
+}
+
+window.addEventListener("hashchange", handleHashRoute);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", handleHashRoute);
+} else {
+  handleHashRoute();
 }
 
 
-// Contact form elements
+// ──────────────────────────────────────────────
+//  CONTACT FORM SUBMISSION
+// ──────────────────────────────────────────────
+
 const form = document.querySelector("[data-form]");
 const inputs = document.querySelectorAll("[data-form-input]");
 const submitBtn = document.querySelector("[data-form-btn]");
@@ -780,6 +821,9 @@ if (form && submitBtn) {
     try {
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
+      data._subject = `New Portfolio Contact from ${data.name || 'Visitor'}`;
+      data._captcha = "false";
+      data._template = "table";
 
       const response = await fetch(form.action, {
         method: "POST",
@@ -796,23 +840,32 @@ if (form && submitBtn) {
         setTimeout(() => {
           submitBtn.innerHTML = originalText;
           submitBtn.disabled = !form.checkValidity();
-        }, 3000);
+        }, 4000);
       } else {
-        throw new Error("Failed to send");
+        throw new Error("Submission response not ok");
       }
     } catch (error) {
-      submitBtn.innerHTML = `<ion-icon name="close-circle-outline"></ion-icon> <span>Error, try again.</span>`;
+      console.warn("Contact form AJAX submission issue:", error);
+      submitBtn.innerHTML = `<ion-icon name="mail-outline"></ion-icon> <span>Opening Mail...</span>`;
+      const nameVal = form.querySelector('[name="name"]')?.value || '';
+      const emailVal = form.querySelector('[name="email"]')?.value || '';
+      const messageVal = form.querySelector('[name="message"]')?.value || '';
+      const mailtoUrl = `mailto:aaradhya.malaviya2005@gmail.com?subject=${encodeURIComponent('Portfolio Contact from ' + nameVal)}&body=${encodeURIComponent('From: ' + nameVal + ' (' + emailVal + ')\n\n' + messageVal)}`;
+      window.location.href = mailtoUrl;
+
       setTimeout(() => {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = !form.checkValidity();
-      }, 3000);
+      }, 4000);
     }
   });
 }
 
 
+// ──────────────────────────────────────────────
+//  CERTIFICATE PREVIEW MODAL
+// ──────────────────────────────────────────────
 
-// certificate preview modal
 const certificateItems = document.querySelectorAll("[data-certificate-item]");
 const certificateModal = document.querySelector("[data-certificate-modal]");
 const certificateModalTitle = document.querySelector("[data-certificate-modal-title]");
@@ -840,13 +893,15 @@ if (certificateModal) {
       const certificateSrc = item.dataset.certificateSrc;
       const certificateTitle = item.dataset.certificateTitle;
       const certificateProvider = item.dataset.certificateProvider;
+      const isPdf = certificateSrc.toLowerCase().endsWith(".pdf");
 
       certificateModalTitle.textContent = certificateTitle;
       certificateModalProvider.textContent = certificateProvider;
       certificateModalFrame.src = certificateSrc;
-      certificateModalFrame.title = `${certificateTitle} PDF preview`;
+      certificateModalFrame.title = `${certificateTitle} ${isPdf ? 'PDF' : 'Certificate'} preview`;
       certificateOpenLink.href = certificateSrc;
-      certificateOpenLink.setAttribute("aria-label", `Open ${certificateTitle} PDF in a new tab`);
+      certificateOpenLink.textContent = isPdf ? "Open PDF" : "Open Certificate";
+      certificateOpenLink.setAttribute("aria-label", `Open ${certificateTitle} ${isPdf ? 'PDF' : 'Certificate'} in a new tab`);
 
       certificateModal.classList.add("active");
       document.body.classList.add("certificate-modal-open");
@@ -923,11 +978,11 @@ if (certificateModal) {
   if (!el) return;
 
   const roles = [
-    'Software Developer',
-    'Full Stack Developer',
-    'Java Developer',
-    'Web Developer',
-    'Problem Solver',
+    'Full-Stack & AI/ML Engineer',
+    'Data Science Intern @ Amdox',
+    'Machine Learning Engineer',
+    'Full-Stack Developer',
+    'Python & MLOps Specialist',
   ];
 
   let roleIdx = 0;

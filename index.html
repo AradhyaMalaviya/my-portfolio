@@ -13,9 +13,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Aaradhya Malaviya — Software Developer portfolio showcasing full-stack web projects, certifications, and professional experience." />
+    <meta name="description" content="Aaradhya Malaviya — Full-Stack & AI/ML Engineer and Data Science Intern at Amdox Technologies. Explore 35+ production AI/ML platforms, full-stack systems, certifications, and research." />
     <meta name="theme-color" content="#0a0a0f" />
-    <title>Aaradhya Malaviya — Software Developer</title>
+    <title>Aaradhya Malaviya — Full-Stack & AI/ML Engineer</title>
+    <link rel="canonical" href="https://aaradhya-malaviya-portfolio.pages.dev" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aaradhya-malaviya-portfolio.pages.dev" />
+    <meta property="og:title" content="Aaradhya Malaviya — Full-Stack & AI/ML Engineer" />
+    <meta property="og:description" content="Explore 35+ production AI/ML platforms, full-stack systems, certifications, and engineering projects." />
+    <meta property="og:image" content="https://aaradhya-malaviya-portfolio.pages.dev/assets/images/my-avatar.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://aaradhya-malaviya-portfolio.pages.dev" />
+    <meta name="twitter:title" content="Aaradhya Malaviya — Full-Stack & AI/ML Engineer" />
+    <meta name="twitter:description" content="Explore 35+ production AI/ML platforms, full-stack systems, certifications, and engineering projects." />
+    <meta name="twitter:image" content="https://aaradhya-malaviya-portfolio.pages.dev/assets/images/my-avatar.png" />
 
     <link
       rel="shortcut icon"
@@ -945,11 +960,15 @@
             <h3 class="h3 form-title">Contact Form</h3>
 
             <form
-              action="/api/contact"
+              action="https://formsubmit.co/ajax/aaradhya.malaviya2005@gmail.com"
               method="POST"
               class="form"
               data-form
             >
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_subject" value="New Portfolio Contact Message" />
+
               <div class="input-wrapper">
                 <input
                   type="text"
@@ -1005,9 +1024,9 @@
         <div class="modal-img-wrapper">
           <figure class="modal-avatar-box">
             <img
-              src="./assets/images/avatar-1.png"
-              alt="Daniel Lewis"
-              width="80"
+              src="./assets/images/company.svg"
+              alt="Experience Icon"
+              width="60"
               data-modal-img
             />
           </figure>
@@ -1016,16 +1035,11 @@
         </div>
 
         <div class="modal-content">
-          <h4 class="h3 modal-title" id="testimonials-modal-title" data-modal-title>Daniel Lewis</h4>
+          <h4 class="h3 modal-title" id="testimonials-modal-title" data-modal-title>Experience Details</h4>
 
           <div data-modal-text>
             <p>
-              Richard was hired to create a corporate identity. We were
-              very pleased with the work done. She has a lot of experience
-              and is very concerned about the needs of client. Lorem ipsum
-              dolor sit amet, ullamcous cididt consectetur adipiscing
-              elit, seds do et eiusmod tempor incididunt ut laborels
-              dolore magnarels alia.
+              Click an experience or collaboration item to view detailed architecture and technical impact.
             </p>
           </div>
         </div>
@@ -1064,13 +1078,13 @@
             rel="noopener noreferrer"
             data-certificate-open-link
           >
-            Open PDF
+            Open Certificate
           </a>
         </div>
 
         <iframe
           class="certificate-modal-frame"
-          title="Certificate PDF preview"
+          title="Certificate preview"
           data-certificate-modal-frame
         ></iframe>
       </section>
@@ -1109,9 +1123,5 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>
