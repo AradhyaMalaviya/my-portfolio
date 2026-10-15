@@ -27,12 +27,19 @@ Tools: Git, GitHub, VS Code, Docker
 Domains: Machine Learning, Deep Learning, Computer Vision, NLP, Reinforcement Learning, Generative AI, Large
 Language Models (LLM), Prompt Engineering
 Experience & Projects
-GenAI-Powered Cognitive Radio | Python, Reinforcement Learning (DQN), PyTorch, Streamlit Jan 2026– Present– Built a DQN-based system for adaptive link selection across 5G and satellite networks.– Optimized throughput and latency via reward engineering for dynamic conditions.– Implemented GenAI-style explainability for interpretable decision-making.– Developed evaluation pipeline and Streamlit dashboard for simulation and visualization.
-License Plate Recognition — Computer Vision | Python, OpenCV, PyTorch, EasyOCR– Built an OCR-based system for license plate detection from video streams.– Achieved accurate plate localization with efficient frame processing.– Designed modular pipeline for future real-time and webcam integration.
-Payment Fraud Detection — ML System | Python, Scikit-learn, Pandas, NumPy, Flask– Developed a fraud detection model with feature engineering and imbalance handling.– Enabled real-time prediction via API-based pipeline.– Improved robustness by handling skewed datasets and optimizing performance.
+FitBox — AI-Powered Fitness & Nutrition Ecosystem | React, TypeScript, FastAPI, PostgreSQL, Tailwind CSS (2025– 2026)
+– Architected and deployed an end-to-end full-stack AI health platform with intelligent workout recommendation and nutrition planning.
+– Engineered JWT authentication, asynchronous REST microservices, and deployed on Cloudflare Pages with 99.9% uptime.
+Neural Retail AI — Predictive Intelligence Platform | Python, Scikit-Learn, Pandas, NumPy, FastAPI (2025– 2026)
+– Built an enterprise retail analytics platform with multi-variate demand forecasting, churn prediction (ROC-AUC 0.92+), and dynamic pricing.
+– Deployed low-latency inference endpoints with automated data preprocessing pipelines and model evaluation telemetry.
+NorthPeak Digital — Enterprise Web Engineering | JavaScript (ES6+), HTML5, CSS3, REST APIs, Vercel (2025– 2026)
+– Engineered high-performance, component-driven client web platforms achieving a perfect 100/100 Google Lighthouse score.
+– Implemented modular responsive design systems, cross-browser optimization, and automated CI/CD deployment pipelines.
+GenAI Cognitive Radio — 5G & Satellite Link Optimizer | Python, Reinforcement Learning (DQN), PyTorch, Streamlit (Jan 2026– Present)
+– Developed a Deep Q-Network (DQN) agent for adaptive, autonomous link selection across 5G terrestrial cells and LEO satellite links.
+– Formulated multi-objective reward engineering for throughput/latency optimization, with GenAI explainability and Streamlit dashboard.
 Certifications
-Sept 2025– Dec 2025
-Aug 2024– Nov 2024
 • Data Science & Analytics: Python for Data Science (Infosys Springboard), Data Science, ML, DL, NLP
 Bootcamp (Udemy), Data Visualisation: Business Insights (Tata Group)
 • Generative AI (Anthropic 2026): Claude 101, Claude Code 101, Intro to Claude Cowork, Intro to Subagents,
