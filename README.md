@@ -1,7 +1,7 @@
 # 🎯 Personal Portfolio Website
 
-> **Live Website (Cloudflare Pages):** [https://aaradhya-malaviya-portfolio.pages.dev](https://aaradhya-malaviya-portfolio.pages.dev)  
-> **GitHub Pages:** [http://aaradhyamalaviya.portfolio/](http://aaradhyamalaviya.portfolio/) · [https://aradhyamalaviya.github.io/my-portfolio/](https://aradhyamalaviya.github.io/my-portfolio/)
+> **Live Website (Cloudflare Pages):** [https://aaradhya-malaviya-portfolio.pages.dev/](https://aaradhya-malaviya-portfolio.pages.dev/)  
+> **GitHub Repository:** [https://github.com/AradhyaMalaviya/my-portfolio](https://github.com/AradhyaMalaviya/my-portfolio)
 
 ---
 
@@ -72,7 +72,7 @@ Actively seeking **Software Developer**, **Full-Stack Developer**, and **AI/ML E
 - Generative AI (LLMs, Prompt Engineering, AI Agents, Anthropic, AWS)
 - Database management (SQL, NoSQL)
 - Cloud & DevOps (AWS, Docker, Git, GitHub)
-- Deployment (Vercel, Netlify, GitHub Pages)
+- Deployment (Cloudflare Pages, Docker, Vercel, Netlify)
 
 ---
 

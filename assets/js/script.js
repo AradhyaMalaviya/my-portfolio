@@ -470,13 +470,37 @@ function createProjectCard(project, index) {
   return li;
 }
 
+// ──────────────────────────────────────────────
+//  NORMALIZED FILTER FUNCTION & TYPO SAFEGUARDS
+// ──────────────────────────────────────────────
+
+const filterBtn = document.querySelectorAll("[data-filter-btn]");
+const selectItems = document.querySelectorAll("[data-select-item]");
+const selectValue = document.querySelector("[data-selecct-value], [data-select-value]");
+const filterItems = document.querySelectorAll("[data-filter-item]");
+
+const filterFunc = function (selectedValue) {
+  if (!selectedValue) return;
+  const normalizedTarget = selectedValue.trim().toLowerCase();
+
+  for (let i = 0; i < filterItems.length; i++) {
+    const itemCategory = (filterItems[i].dataset.category || "").trim().toLowerCase();
+
+    if (normalizedTarget === "all" || normalizedTarget === itemCategory) {
+      filterItems[i].classList.add("active");
+    } else {
+      filterItems[i].classList.remove("active");
+    }
+  }
+};
+
 /**
  * Filter & search handler
  */
 function applyFiltersAndSearch() {
   const searchInput = document.getElementById("gh-search-input");
   const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
-  const filterKey = activeFilterKey.toLowerCase();
+  const filterKey = (activeFilterKey || "all").trim().toLowerCase();
   const gridEl = document.getElementById("gh-project-grid");
   const emptyStateEl = document.getElementById("gh-empty-state");
   const visibleCountEl = document.getElementById("gh-visible-count");
@@ -487,9 +511,9 @@ function applyFiltersAndSearch() {
   let visibleCount = 0;
 
   cards.forEach((card, i) => {
-    const cardLang = (card.dataset.language || "").toLowerCase();
-    const cardCat = (card.dataset.category || "").toLowerCase();
-    const cardVis = (card.dataset.visibility || "").toLowerCase();
+    const cardLang = (card.dataset.language || "").trim().toLowerCase();
+    const cardCat = (card.dataset.category || "").trim().toLowerCase();
+    const cardVis = (card.dataset.visibility || "").trim().toLowerCase();
     const isFeatured = card.dataset.featured === "true";
     const cardText = (card.textContent || "").toLowerCase();
 
@@ -505,8 +529,8 @@ function applyFiltersAndSearch() {
       matchesFilter = cardCat.includes("ai") || cardCat.includes("ml") || cardCat.includes("data");
     } else if (filterKey === "full-stack") {
       matchesFilter = cardCat === "full-stack";
-    } else if (filterKey === "web") {
-      matchesFilter = cardCat === "web";
+    } else if (filterKey === "web" || filterKey === "web development") {
+      matchesFilter = cardCat === "web" || cardCat.includes("web");
     } else if (filterKey === "automation") {
       matchesFilter = cardCat === "automation";
     } else {
@@ -814,67 +838,79 @@ if (document.readyState === "loading") {
 
 
 // ──────────────────────────────────────────────
-//  CONTACT FORM SUBMISSION
+//  CONTACT FORM VALIDATION & RESILIENT FORMSUBMIT AJAX HANDLER
 // ──────────────────────────────────────────────
 
 const form = document.querySelector("[data-form]");
-const inputs = document.querySelectorAll("[data-form-input]");
-const submitBtn = document.querySelector("[data-form-btn]");
+const formInputs = document.querySelectorAll("[data-form-input]");
+const formBtn = document.querySelector("[data-form-btn]");
 
-// Enable button only when form is valid (with safety check)
-if (form && submitBtn) {
-  inputs.forEach(input => {
+if (form && formBtn) {
+  formInputs.forEach((input) => {
     input.addEventListener("input", () => {
-      submitBtn.disabled = !form.checkValidity();
+      if (form.checkValidity()) {
+        formBtn.removeAttribute("disabled");
+      } else {
+        formBtn.setAttribute("disabled", "");
+      }
     });
   });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = `<ion-icon name="sync-outline" class="spin"></ion-icon> <span>Sending...</span>`;
-    submitBtn.disabled = true;
+    if (!form.checkValidity()) return;
+
+    const originalBtnHTML = formBtn.innerHTML;
+    formBtn.setAttribute("disabled", "");
+    formBtn.innerHTML = `<ion-icon name="sync-outline" class="spin"></ion-icon> <span>Sending...</span>`;
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
 
     try {
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-      data._subject = `New Portfolio Contact from ${data.name || 'Visitor'}`;
-      data._captcha = "false";
-      data._template = "table";
+      const response = await fetch(
+        form.action || "https://formsubmit.co/ajax/d2287a3bf0c44c8bb31035518ab9f74e",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
-      const response = await fetch(form.action, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
+      const result = await response.json();
 
-      if (response.ok) {
-        submitBtn.innerHTML = `<ion-icon name="checkmark-circle-outline"></ion-icon> <span>Sent Successfully!</span>`;
+      if (response.ok && (result.success === "true" || result.success === true)) {
         form.reset();
-        setTimeout(() => {
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = !form.checkValidity();
-        }, 4000);
+        formBtn.innerHTML = `<ion-icon name="checkmark-circle-outline"></ion-icon> <span>Message Sent ✓</span>`;
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "contact_form_submit", { status: "success" });
+        }
       } else {
-        throw new Error("Submission response not ok");
+        throw new Error(result.message || "Submission failed");
       }
     } catch (error) {
-      console.warn("Contact form AJAX submission issue:", error);
-      submitBtn.innerHTML = `<ion-icon name="mail-outline"></ion-icon> <span>Opening Mail...</span>`;
+      console.error("Contact Form Error:", error);
+      formBtn.innerHTML = `<ion-icon name="alert-circle-outline"></ion-icon> <span>Error — Try Direct Email</span>`;
+      // Graceful fallback to mail client
       const nameVal = form.querySelector('[name="name"]')?.value || '';
       const emailVal = form.querySelector('[name="email"]')?.value || '';
       const messageVal = form.querySelector('[name="message"]')?.value || '';
-      const mailtoUrl = `mailto:aaradhya.malaviya2005@gmail.com?subject=${encodeURIComponent('Portfolio Contact from ' + nameVal)}&body=${encodeURIComponent('From: ' + nameVal + ' (' + emailVal + ')\n\n' + messageVal)}`;
-      window.location.href = mailtoUrl;
-
+      if (nameVal || messageVal) {
+        const mailtoUrl = `mailto:aaradhya.malaviya2005@gmail.com?subject=${encodeURIComponent('Portfolio Contact from ' + nameVal)}&body=${encodeURIComponent('From: ' + nameVal + ' (' + emailVal + ')\n\n' + messageVal)}`;
+        window.location.href = mailtoUrl;
+      }
+    } finally {
       setTimeout(() => {
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = !form.checkValidity();
-      }, 4000);
+        formBtn.innerHTML = originalBtnHTML;
+        if (!form.checkValidity()) {
+          formBtn.setAttribute("disabled", "");
+        } else {
+          formBtn.removeAttribute("disabled");
+        }
+      }, 3500);
     }
   });
 }

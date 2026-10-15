@@ -2,10 +2,16 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZMTR0MF3R"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){
+        if (typeof window.dataLayer !== 'undefined' && Array.isArray(window.dataLayer)) {
+          window.dataLayer.push(arguments);
+        }
+      }
       gtag('js', new Date());
 
       gtag('config', 'G-YZMTR0MF3R');
@@ -13,23 +19,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Aaradhya Malaviya — Full-Stack & AI/ML Engineer and Data Science Intern at Amdox Technologies. Explore 35+ production AI/ML platforms, full-stack systems, certifications, and research." />
+    <meta name="description" content="Portfolio of Aaradhya Malaviya — Production AI/ML Systems, Sub-5ms FastAPI Microservices, and Full-Stack React &amp; TypeScript SaaS Platforms." />
     <meta name="theme-color" content="#0a0a0f" />
-    <title>Aaradhya Malaviya — Full-Stack & AI/ML Engineer</title>
-    <link rel="canonical" href="https://aaradhya-malaviya-portfolio.pages.dev" />
+    <title>Aaradhya Malaviya | AI/ML Engineer &amp; Full-Stack Developer</title>
 
-    <!-- Open Graph / Facebook -->
+    <!-- Canonical & OpenGraph Metadata for Cloudflare Pages -->
+    <link rel="canonical" href="https://aaradhya-malaviya-portfolio.pages.dev/" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://aaradhya-malaviya-portfolio.pages.dev" />
-    <meta property="og:title" content="Aaradhya Malaviya — Full-Stack & AI/ML Engineer" />
-    <meta property="og:description" content="Explore 35+ production AI/ML platforms, full-stack systems, certifications, and engineering projects." />
+    <meta property="og:title" content="Aaradhya Malaviya | AI/ML Engineer &amp; Full-Stack Developer" />
+    <meta property="og:description" content="Portfolio of Aaradhya Malaviya — Production AI/ML Systems, Sub-5ms FastAPI Microservices, and Full-Stack React &amp; TypeScript SaaS Platforms." />
+    <meta property="og:url" content="https://aaradhya-malaviya-portfolio.pages.dev/" />
     <meta property="og:image" content="https://aaradhya-malaviya-portfolio.pages.dev/assets/images/my-avatar.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://aaradhya-malaviya-portfolio.pages.dev" />
-    <meta name="twitter:title" content="Aaradhya Malaviya — Full-Stack & AI/ML Engineer" />
-    <meta name="twitter:description" content="Explore 35+ production AI/ML platforms, full-stack systems, certifications, and engineering projects." />
+    <meta name="twitter:url" content="https://aaradhya-malaviya-portfolio.pages.dev/" />
+    <meta name="twitter:title" content="Aaradhya Malaviya | AI/ML Engineer &amp; Full-Stack Developer" />
+    <meta name="twitter:description" content="Portfolio of Aaradhya Malaviya — Production AI/ML Systems, Sub-5ms FastAPI Microservices, and Full-Stack React &amp; TypeScript SaaS Platforms." />
     <meta name="twitter:image" content="https://aaradhya-malaviya-portfolio.pages.dev/assets/images/my-avatar.png" />
 
     <link
@@ -445,32 +451,32 @@
 
             <ol class="timeline-list">
               <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">FitBox — AI-Powered Fitness & Nutrition Ecosystem</h4>
-                <span>Full-Stack & Applied AI Engineer | 2025 — 2026</span>
+                <h4 class="h4 timeline-item-title">Data Science & Analytics Intern — Amdox Technologies</h4>
+                <span>Data Science Intern | Jan 2026 — Present</span>
                 <p class="timeline-text">
-                  Architected and deployed an end-to-end full-stack AI health platform using <strong>React, TypeScript, FastAPI, and PostgreSQL</strong>. Engineered intelligent recommendation engines for anatomical workout planning, culturally-adapted Indian nutrition tracking, and GymBuddy partner matching. Built secure JWT authentication, asynchronous REST microservices, and deployed live with 99.9% uptime on Cloudflare Pages.
+                  Architected the <strong>NeuralRetail Platform</strong> churn ensemble model (<strong>0.91 AUC-ROC</strong>) &amp; multi-variate demand forecaster (<strong>8.4% MAPE</strong> across 3,600+ SKUs) coupled with a decoupled FastAPI engine (<strong>&lt;5ms latency</strong>). Built the <strong>MediCare AI Triage</strong> 9-disease diagnostic pipeline with <strong>86%+ pytest coverage</strong>, Prometheus observability, and containerized Gunicorn deployment.
                 </p>
               </li>
 
               <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">Neural Retail AI — Predictive Intelligence Platform</h4>
-                <span>Machine Learning & Backend Engineer | 2025 — 2026</span>
-                <p class="timeline-text">
-                  Engineered an enterprise retail analytics platform leveraging <strong>Python, Scikit-Learn, Pandas, NumPy, and FastAPI</strong>. Built multi-variate demand forecasting, customer churn prediction (ROC-AUC 0.92+), and automated dynamic pricing models. Deployed low-latency inference endpoints with automated data preprocessing pipelines and model evaluation telemetry.
-                </p>
-              </li>
-
-              <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">NorthPeak Digital — Enterprise Web Engineering</h4>
-                <span>Web Development Engineering Intern | 2025 — 2026</span>
+                <h4 class="h4 timeline-item-title">Web Development Engineering Intern — NorthPeak Digital</h4>
+                <span>Web Development Intern | Sept 2025 — Dec 2025</span>
                 <p class="timeline-text">
                   Engineered high-performance, component-driven client web architectures utilizing <strong>modern JavaScript (ES6+), HTML5/CSS3, and RESTful APIs</strong>, achieving a <strong>perfect 100/100 Google Lighthouse performance score</strong>. Implemented modular responsive design systems, cross-browser optimization, and automated CI/CD deployment pipelines on Vercel.
                 </p>
               </li>
 
               <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">GenAI Cognitive Radio — 5G & Satellite Link Optimizer</h4>
-                <span>AI & Deep Reinforcement Learning Developer | Jan 2026 — Present</span>
+                <h4 class="h4 timeline-item-title">FitBox — AI-Powered Fitness &amp; Nutrition Ecosystem</h4>
+                <span>Full-Stack &amp; Applied AI Engineer | 2025 — 2026</span>
+                <p class="timeline-text">
+                  Architected and deployed an end-to-end full-stack AI health platform using <strong>React, TypeScript, FastAPI, and PostgreSQL</strong>. Engineered intelligent recommendation engines for anatomical workout planning, culturally-adapted Indian nutrition tracking, and GymBuddy partner matching. Built secure JWT authentication, asynchronous REST microservices, and deployed live with 99.9% uptime on Cloudflare Pages.
+                </p>
+              </li>
+
+              <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">GenAI Cognitive Radio — 5G &amp; Satellite Link Optimizer</h4>
+                <span>AI &amp; Deep Reinforcement Learning Developer | Jan 2026 — Present</span>
                 <p class="timeline-text">
                   Developed a Deep Q-Network (DQN) agent in <strong>PyTorch</strong> for adaptive, autonomous link selection across 5G terrestrial cells and LEO satellite links. Formulated multi-objective reward engineering to maximize throughput and minimize latency under dynamic interference, integrated with GenAI-driven reasoning layers for interpretable decision-making and Streamlit simulations.
                 </p>
@@ -958,7 +964,7 @@
             <h3 class="h3 form-title">Contact Form</h3>
 
             <form
-              action="https://formsubmit.co/ajax/aaradhya.malaviya2005@gmail.com"
+              action="https://formsubmit.co/ajax/d2287a3bf0c44c8bb31035518ab9f74e"
               method="POST"
               class="form"
               data-form

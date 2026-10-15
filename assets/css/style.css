@@ -80,6 +80,7 @@
 
   /* font-weight */
   --fw-300: 300;
+  --fw-3: 300;
   --fw-400: 400;
   --fw-500: 500;
   --fw-600: 600;
@@ -3900,4 +3901,11 @@ body.light-theme .social-link:hover {
 .fade-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Ensure mobile fixed navbar never blocks the Contact Submit button */
+@media (max-width: 1024px) {
+  main {
+    margin-bottom: 85px !important;
+  }
 }

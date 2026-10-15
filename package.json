@@ -1,5 +1,9 @@
 {
-  "dependencies": {
-    "@vercel/analytics": "^2.0.1"
+  "name": "aaradhya-malaviya-portfolio",
+  "version": "2.0.0",
+  "description": "Portfolio of Aaradhya Malaviya — Full-Stack & AI/ML Engineer",
+  "homepage": "https://aaradhya-malaviya-portfolio.pages.dev/",
+  "scripts": {
+    "start": "python -m http.server 3000"
   }
 }
