@@ -2,11 +2,12 @@
 
 ## 1. Project Overview
 **Project Name:** Aaradhya Malaviya Professional Portfolio  
-**Version:** 5.0 (Cloudflare Pages & Master Projects Registry Release)  
+**Version:** 5.1 / 2.1.0 (Cloudflare Pages Production Deployment & Technical Audit Release)  
 **Author:** Aaradhya Malaviya  
 **Status:** Production Ready  
-**Deployment Path:** Cloudflare Pages (Primary Production) · GitHub Pages (CNAME) · Vercel (CI/CD)  
-**Live Production URL:** [https://aaradhya-malaviya-portfolio.pages.dev](https://aaradhya-malaviya-portfolio.pages.dev)
+**Deployment Path:** Cloudflare Pages (Primary Production Edge) · GitHub Pages (CNAME) · Vercel (CI/CD)  
+**Live Production URL:** [https://aaradhya-malaviya-portfolio.pages.dev](https://aaradhya-malaviya-portfolio.pages.dev)  
+**Repository:** [https://github.com/AradhyaMalaviya/Portfolio](https://github.com/AradhyaMalaviya/Portfolio) (Redirected from `my-portfolio`)
 
 ### 1.1 Executive Summary
 A high-performance, responsive Single-Page Application (SPA) designed to act as a comprehensive professional identity hub. The platform bridges the gap between a traditional resume and a live project showcase by integrating real-time data from GitHub, interactive certification verification, and live project preview images that visually represent each deployed application.
@@ -154,3 +155,10 @@ A high-performance, responsive Single-Page Application (SPA) designed to act as 
 *   **Contact Form:** Protection via FormSubmit's built-in honeypot and email verification.
 *   **Dependencies:** Zero heavy frameworks (Vanilla JS/CSS) to minimize vulnerability surface.
 *   **External Links:** All external links use `rel="noopener noreferrer"` and `target="_blank"`.
+
+### 6.3 Production Deployment & Edge Hosting (Cloudflare Pages)
+*   **Edge Network:** Cloudflare Pages with automatic continuous deployment linked to the GitHub `master` branch.
+*   **Primary Production Domain:** `https://aaradhya-malaviya-portfolio.pages.dev/`
+*   **Security & Caching Headers:** Configured via `_headers` for strict origin isolation and 1-year immutable asset caching (`Cache-Control: public, max-age=31536000, immutable`).
+*   **Routing:** Direct SPA serving with standard fallback to `index.html` and styled error dispatch (`404.html`).
+

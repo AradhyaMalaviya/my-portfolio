@@ -1,9 +1,11 @@
 {
   "name": "aaradhya-malaviya-portfolio",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Portfolio of Aaradhya Malaviya — Full-Stack & AI/ML Engineer",
   "homepage": "https://aaradhya-malaviya-portfolio.pages.dev/",
   "scripts": {
-    "start": "python -m http.server 3000"
+    "start": "python -m http.server 3000",
+    "deploy": "wrangler pages deploy . --project-name=aaradhya-malaviya-portfolio"
   }
 }
+

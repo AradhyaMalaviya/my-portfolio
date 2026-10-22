@@ -71,3 +71,5 @@ node_modules/
 # Antigravity CLI internal files
 .antigravitycli/
 
+# Wrangler / Cloudflare cache
+.wrangler/

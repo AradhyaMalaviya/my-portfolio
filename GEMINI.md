@@ -18,7 +18,7 @@ This repository contains the Personal Portfolio Website for Aaradhya Malaviya. I
 ## Project Architecture & Directory Structure
 *   `index.html`: The core HTML file containing the entire single-page structure.
 *   `404.html`: A stylized custom error page matching the main theme.
-*   `PRD.md`: Master technical specification (Version 5.0 - Master Projects Registry Release).
+*   `PRD.md`: Master technical specification (Version 5.1 / 2.1.0 - Cloudflare Pages Production Release).
 *   `indeed-application-queue.md`: Tracking document for job applications, candidate positioning, and screening answers.
 *   `assets/css/style.css`: The central stylesheet (~3600 lines). Contains:
     *   **CSS Variables:** Robust set for theming and design tokens.
@@ -45,16 +45,18 @@ This repository contains the Personal Portfolio Website for Aaradhya Malaviya. I
 *   `resume file/`: Houses the downloadable resume documents.
 
 ## Building and Running
-The project is a vanilla static site. No build tools are required for development.
+The project is a vanilla static site. No heavy build step is required for development or production.
 
 **To run locally:**
-Use any standard local HTTP server in the root directory:
+Use the npm script or standard local HTTP server in the repository directory:
+*   `npm start` (Runs `python -m http.server 3000`)
 *   `npx serve` or `npx http-server`
-*   Python: `python -m http.server 8000`
+*   Python: `python -m http.server 3000`
 *   VS Code: "Live Server" extension.
 
 **To deploy:**
-Deploy the root files (`index.html`, `404.html`, `assets/`) directly to Vercel, Netlify, or GitHub Pages.
+*   **Production (Cloudflare Pages):** Pushing to GitHub `master` branch triggers automatic continuous deployment to [https://aaradhya-malaviya-portfolio.pages.dev/](https://aaradhya-malaviya-portfolio.pages.dev/). Custom security headers and cache rules are governed by `_headers`.
+*   **Alternative Environments:** Root files (`index.html`, `404.html`, `assets/`) can be hosted directly on Vercel, Netlify, or GitHub Pages.
 
 ## Development Conventions
 1.  **Styling & Theming:**

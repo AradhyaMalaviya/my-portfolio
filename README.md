@@ -1,7 +1,8 @@
 # 🎯 Personal Portfolio Website
 
 > **Live Website (Cloudflare Pages):** [https://aaradhya-malaviya-portfolio.pages.dev/](https://aaradhya-malaviya-portfolio.pages.dev/)  
-> **GitHub Repository:** [https://github.com/AradhyaMalaviya/my-portfolio](https://github.com/AradhyaMalaviya/my-portfolio)
+> **GitHub Repository:** [https://github.com/AradhyaMalaviya/Portfolio](https://github.com/AradhyaMalaviya/Portfolio) (Redirected from `my-portfolio`)  
+> **Release Version:** `v2.1.0` (Production Cloudflare Pages Edge Deployment)
 
 ---
 
@@ -135,9 +136,18 @@ All certificates are viewable in the **Certifications** section with interactive
 - Introduction to Generative AI: Art of the Possible
 
 **Anthropic Education (2026):**
-- Introduction to Subagents
+- Introduction to Model Context Protocol (MCP)
+- Claude Platform 101
+- AI Fluency: Framework & Foundations
+- Claude Code in Action
+- Introduction to Claude Cowork
+- Claude Code 101
+- Claude 101
 - Introduction to Agent Skills
-- *Also completed: Claude 101, Claude Code 101, Intro to Claude Cowork*
+- Introduction to Subagents
+
+**Tata Group & Forage:**
+- GenAI Powered Data Analytics Job Simulation
 
 **Data Science:**
 - Python for Data Science (Infosys / OnWingspan)
@@ -161,6 +171,27 @@ Fully responsive design across all viewports.
 ## 📬 Contact
 
 ![Contact — Map integration and form with FormSubmit AJAX](./assets/images/readme/portfolio-contact.png)
+
+---
+
+## 🚀 Deployment & Cloudflare Pages Hosting
+
+The portfolio is deployed to production using **Cloudflare Pages**, delivering sub-second response times worldwide through Cloudflare's global edge network.
+
+| Environment | Hosting Provider | Deployment URL | Trigger |
+|-------------|------------------|----------------|---------|
+| **Production** | Cloudflare Pages | [https://aaradhya-malaviya-portfolio.pages.dev/](https://aaradhya-malaviya-portfolio.pages.dev/) | Git push to `master` branch |
+| **Local Dev** | Python HTTP Server / Node | `http://localhost:3000` | `npm start` |
+
+### Cloudflare Pages Architecture
+- **Continuous Deployment (CI/CD):** Every commit pushed to the `master` branch automatically triggers an immediate, zero-downtime build and deployment on Cloudflare Pages.
+- **Edge Security Headers:** Configured via [`_headers`](./_headers) to provide robust security out-of-the-box:
+  - `X-Content-Type-Options: nosniff`
+  - `X-Frame-Options: SAMEORIGIN`
+  - `Referrer-Policy: strict-origin-when-cross-origin`
+  - `Permissions-Policy: camera=(), microphone=(), geolocation=()`
+- **Asset Optimization & Caching:** All static assets under `/assets/*` are cached with 1-year immutable caching headers (`Cache-Control: public, max-age=31536000, immutable`).
+- **Domain Routing:** Canonical URLs, OpenGraph metadata, and Twitter cards are synchronized to `https://aaradhya-malaviya-portfolio.pages.dev/`.
 
 ---
 
@@ -192,6 +223,7 @@ Portfolio/
 
 ## 🔄 Recent Updates
 
+- **v2.1.0 Cloudflare Pages Production Release:** Updated production deployment architecture, added Anthropic and AWS 2026 key certifications, integrated security headers (`_headers`), updated resume downloads, and resolved technical SEO and accessibility audits.
 - **Premium UI Refactor:** Added animated background floating orbs, a conic-gradient rotating ring for the profile avatar, and scroll-triggered skill progress bar animations.
 - **Project Preview Cards:** Replaced generic icons with **real screenshots** from live deployments. Clickable banners link to Vercel deployments or GitHub source.
 - **GitHub API Branding:** Implemented `hashColor` logic to generate unique, consistent branding gradients for all dynamic repository cards.

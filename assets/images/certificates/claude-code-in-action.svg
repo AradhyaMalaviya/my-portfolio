@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="title desc">
+  <title id="title">Claude Code in Action certificate preview</title>
+  <desc id="desc">Preview card for an Anthropic Education completion certificate awarded to Aaradhya Malaviya.</desc>
+  <rect width="1000" height="700" fill="#788c5d"/>
+  <rect x="210" y="96" width="580" height="66" rx="33" fill="none" stroke="#111111" stroke-width="4"/>
+  <circle cx="258" cy="129" r="20" fill="#ffffff" stroke="#111111" stroke-width="3"/>
+  <path d="M248 130l8 8 15-17" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="500" y="141" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="5" fill="#111111">CERTIFICATE OF COMPLETION</text>
+  <text x="500" y="312" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#111111">Aaradhya Malaviya has completed</text>
+  <text x="500" y="408" text-anchor="middle" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#111111">Claude Code</text>
+  <text x="500" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#111111">in Action</text>
+  <text x="500" y="606" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="2" fill="#111111">ANTHROP\C</text>
+</svg>
