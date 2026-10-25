@@ -1,4 +1,5 @@
 import os
+import html
 import resend
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -27,17 +28,22 @@ class ContactForm(BaseModel):
 @app.post("/api/contact")
 async def send_contact_email(form: ContactForm):
     try:
+        # Sanitize user input to prevent XSS in HTML email
+        safe_name = html.escape(form.name)
+        safe_email = html.escape(form.email)
+        safe_message = html.escape(form.message)
+
         # Construct the email parameters
         params = {
             "from": "onboarding@resend.dev", # Or your verified domain, e.g., contact@aaradhya.dev
             "to": ["aaradhya.malaviya2005@gmail.com"],
-            "subject": f"New Portfolio Message from {form.name}",
+            "subject": f"New Portfolio Message from {safe_name}",
             "html": f"""
             <h3>New Contact Form Submission</h3>
-            <p><strong>Name:</strong> {form.name}</p>
-            <p><strong>Email:</strong> {form.email}</p>
+            <p><strong>Name:</strong> {safe_name}</p>
+            <p><strong>Email:</strong> {safe_email}</p>
             <p><strong>Message:</strong></p>
-            <p>{form.message}</p>
+            <p>{safe_message}</p>
             """,
             "reply_to": form.email
         }

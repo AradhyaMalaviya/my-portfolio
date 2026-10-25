@@ -1,8 +1,9 @@
 # 🎯 Personal Portfolio Website
 
 > **Live Website (Cloudflare Pages):** [https://aaradhya-malaviya-portfolio.pages.dev/](https://aaradhya-malaviya-portfolio.pages.dev/)  
+> **Live Mirror (Vercel):** [https://personal-portfolio-iota-silk-19.vercel.app/](https://personal-portfolio-iota-silk-19.vercel.app/)  
 > **GitHub Repository:** [https://github.com/AradhyaMalaviya/Portfolio](https://github.com/AradhyaMalaviya/Portfolio) (Redirected from `my-portfolio`)  
-> **Release Version:** `v2.1.0` (Production Cloudflare Pages Edge Deployment)
+> **Release Version:** `v2.1.0` (Production Cloudflare Pages Edge Deployment & Vercel Mirror)
 
 ---
 
@@ -180,7 +181,8 @@ The portfolio is deployed to production using **Cloudflare Pages**, delivering s
 
 | Environment | Hosting Provider | Deployment URL | Trigger |
 |-------------|------------------|----------------|---------|
-| **Production** | Cloudflare Pages | [https://aaradhya-malaviya-portfolio.pages.dev/](https://aaradhya-malaviya-portfolio.pages.dev/) | Git push to `master` branch |
+| **Production (Primary)** | Cloudflare Pages | [https://aaradhya-malaviya-portfolio.pages.dev/](https://aaradhya-malaviya-portfolio.pages.dev/) | Git push to `master` branch |
+| **Edge / Staging (Mirror)** | Vercel | [https://personal-portfolio-iota-silk-19.vercel.app/](https://personal-portfolio-iota-silk-19.vercel.app/) | Git push to `master` branch |
 | **Local Dev** | Python HTTP Server / Node | `http://localhost:3000` | `npm start` |
 
 ### Cloudflare Pages Architecture

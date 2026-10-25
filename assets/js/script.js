@@ -102,6 +102,9 @@ const LANG_COLORS = {
   Vue:         "#41b883",
   SCSS:        "#c6538c",
   Jupyter:     "#DA5B0B",
+  "Jupyter Notebook": "#DA5B0B",
+  Markdown:    "#083fa1",
+  Svelte:      "#ff3e00",
 };
 
 /**
@@ -664,7 +667,7 @@ async function syncWithGitHub() {
   const syncIcon = document.getElementById("gh-sync-icon");
   const syncStatus = document.getElementById("gh-sync-status");
 
-  if (syncIcon) syncIcon.classList.add("spinning");
+  if (syncIcon) syncIcon.classList.add("gh-sync-icon", "spinning");
   if (syncStatus) syncStatus.textContent = "Syncing...";
 
   try {
@@ -722,6 +725,7 @@ function initProjectsEngine() {
   // Setup Search Input
   const searchInput = document.getElementById("gh-search-input");
   if (searchInput) {
+    searchInput.placeholder = `Search ${masterProjectsList.length}+ projects by name, technology (Python, React, FastAPI...), or keyword...`;
     searchInput.addEventListener("input", applyFiltersAndSearch);
   }
 

@@ -56,7 +56,8 @@ Use the npm script or standard local HTTP server in the repository directory:
 
 **To deploy:**
 *   **Production (Cloudflare Pages):** Pushing to GitHub `master` branch triggers automatic continuous deployment to [https://aaradhya-malaviya-portfolio.pages.dev/](https://aaradhya-malaviya-portfolio.pages.dev/). Custom security headers and cache rules are governed by `_headers`.
-*   **Alternative Environments:** Root files (`index.html`, `404.html`, `assets/`) can be hosted directly on Vercel, Netlify, or GitHub Pages.
+*   **Production Mirror (Vercel):** Continuous deployment via GitHub integration to [https://personal-portfolio-iota-silk-19.vercel.app/](https://personal-portfolio-iota-silk-19.vercel.app/).
+*   **Alternative Environments:** Root files (`index.html`, `404.html`, `assets/`) can also be hosted on Netlify or GitHub Pages.
 
 ## Development Conventions
 1.  **Styling & Theming:**

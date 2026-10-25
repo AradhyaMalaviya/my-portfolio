@@ -73,3 +73,7 @@ node_modules/
 
 # Wrangler / Cloudflare cache
 .wrangler/
+
+# Python cache
+__pycache__/
+*.py[cod]

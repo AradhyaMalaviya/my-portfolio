@@ -6,7 +6,8 @@
 **Author:** Aaradhya Malaviya  
 **Status:** Production Ready  
 **Deployment Path:** Cloudflare Pages (Primary Production Edge) · GitHub Pages (CNAME) · Vercel (CI/CD)  
-**Live Production URL:** [https://aaradhya-malaviya-portfolio.pages.dev](https://aaradhya-malaviya-portfolio.pages.dev)  
+**Live Production URL (Cloudflare Pages):** [https://aaradhya-malaviya-portfolio.pages.dev](https://aaradhya-malaviya-portfolio.pages.dev)  
+**Live Mirror URL (Vercel):** [https://personal-portfolio-iota-silk-19.vercel.app](https://personal-portfolio-iota-silk-19.vercel.app)  
 **Repository:** [https://github.com/AradhyaMalaviya/Portfolio](https://github.com/AradhyaMalaviya/Portfolio) (Redirected from `my-portfolio`)
 
 ### 1.1 Executive Summary
