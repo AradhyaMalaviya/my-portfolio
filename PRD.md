@@ -7,7 +7,7 @@
 **Status:** Production Ready  
 **Deployment Path:** Cloudflare Pages (Primary Production Edge) · GitHub Pages (CNAME) · Vercel (CI/CD)  
 **Live Production URL (Cloudflare Pages):** [https://aaradhya-malaviya-portfolio.pages.dev](https://aaradhya-malaviya-portfolio.pages.dev)  
-**Live Mirror URL (Vercel):** [https://personal-portfolio-iota-silk-19.vercel.app](https://personal-portfolio-iota-silk-19.vercel.app)  
+**Live Mirror URL (Vercel):** [https://aaradhya-malaviya-portfolio.vercel.app](https://aaradhya-malaviya-portfolio.vercel.app)  
 **Repository:** [https://github.com/AradhyaMalaviya/Portfolio](https://github.com/AradhyaMalaviya/Portfolio) (Redirected from `my-portfolio`)
 
 ### 1.1 Executive Summary
@@ -79,7 +79,7 @@ A high-performance, responsive Single-Page Application (SPA) designed to act as 
     | `neural-retail-ai` | `neural-retail-ai.png` | GitHub source |
     | `detoxing` | `detoxing.jpg` | `detoxingwithbagga.vercel.app` |
     | `web-development-internship-project` | `web-development-internship.webp` | `web-development-internship-project.vercel.app` |
-    | `my-portfolio` | `portfolio-hero.png` | `personal-portfolio-iota-silk-19.vercel.app/` |
+    | `my-portfolio` | `portfolio-hero.png` | `aaradhya-malaviya-portfolio.vercel.app` |
 *   **Banner Variants:**
     *   `.gh-card-banner--preview`: Full-bleed responsive image with subtle dark gradient overlay and interactive zoom.
     *   `.gh-card-banner--fallback`: Dynamic gradient banner with reactive icons (`hardware-chip-outline`, `shield-checkmark-outline`, `code-slash-outline`).

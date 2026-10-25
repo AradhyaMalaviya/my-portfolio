@@ -74,6 +74,12 @@ node_modules/
 # Wrangler / Cloudflare cache
 .wrangler/
 
+# Build and editor outputs
+dist/
+.vscode/
+.DS_Store
+Thumbs.db
+
 # Python cache
 __pycache__/
 *.py[cod]
